@@ -1,0 +1,68 @@
+/* App */
+.app {
+  background-color: #202020;
+  min-width: 320px;
+}
+
+.app__page {
+  margin: 0 auto;
+  padding: 0;
+  max-width: 1280px;
+  min-width: 320px;
+  min-height: 100vh;
+
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  color: #fff;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+
+/* Section for laptop */
+.section {
+  margin: 0 auto;
+  width: 100%;
+}
+
+.section__title {
+  margin: 0 auto;
+  padding: 100px 0 23px;
+  max-width: 1140px;
+  width: 90%;
+
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.23;
+  letter-spacing: -0.04em;
+
+  border-bottom: 1px solid #DADADA;
+}
+
+
+/* Section for tablet */
+@media screen and (max-width: 768px) {
+  .section__title {
+    padding-top: 90px;
+    width: 87%;
+  }
+}
+
+
+/* Section for phone */
+@media screen and (max-width: 320px) {
+  .section__title {
+    padding: 70px 0 28px;
+
+    font-size: 18px;
+    line-height: 1.21;
+  }
+}

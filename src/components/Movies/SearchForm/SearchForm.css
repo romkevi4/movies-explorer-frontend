@@ -1,0 +1,130 @@
+/* Search for laptop */
+.search {
+  border-bottom: 1px solid #424242;
+}
+
+.search__form {
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  height: 236px;
+  position: relative;
+}
+
+.search__input {
+  margin: 60px auto 42px;
+  padding: 1px 80px 1px 22px;
+  width: 100%;
+  height: 46px;
+
+  border: none;
+  border-radius: 40px;
+  outline: none;
+
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.31;
+  color: #fff;
+
+  background-color: #2F2F2F;
+}
+
+.search__input::placeholder {
+  color: #8B8B8B;
+}
+
+.search__btn-submit {
+  margin: 0;
+  padding: 0;
+  width: 34px;
+  height: 34px;
+
+  border: none;
+  border-radius: 50%;
+  background-color: #4285F4;
+
+  display: flex;
+  position: absolute;
+  top: 66px;
+  right: 6px;
+}
+
+.search__btn-submit:hover {
+  cursor: pointer;
+}
+
+.search__image-arrow {
+  margin: auto;
+  width: 5px;
+  height: 12px;
+}
+
+.search__wrapper {
+  margin: 0 auto 70px;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input[type="checkbox"].search__checkbox {
+  width: 34px;
+  height: 14px;
+  border-radius: 20px;
+
+  background-color: #343434;
+  appearance: none;
+  outline: none;
+
+  position: relative;
+  cursor: pointer;
+
+  transition: all .3s ease-in-out .1s;
+}
+
+input[type="checkbox"].search__checkbox:checked {
+  background-color: #3DDC84;
+}
+
+input[type="checkbox"].search__checkbox:after {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+
+  background: #A0A0A0;
+  box-shadow: 0 0 2px rgba(0,0,0,.3);
+
+  position: absolute;
+  content: "";
+  top: 2px;
+  right: 22px;
+  bottom: 2px;
+  left: 2px;
+
+  transition: all .3s ease-in-out .1s;
+}
+
+input[type="checkbox"].search__checkbox:checked:after {
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+  left: 22px;
+
+  background: #fff;
+  box-shadow: 0 0 2px rgba(0,0,0,.3);
+}
+
+.search__signature {
+  margin: 0 0 0 12px;
+
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.29;
+}
+
+
+/* Search for tablet */
+@media screen and (max-width: 768px) {
+
+}
