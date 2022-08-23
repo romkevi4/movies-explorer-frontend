@@ -10,9 +10,8 @@ import './Main.css';
 export default function Main() {
     return (
         <>
-            <Promo />
-
             <main className="main">
+                <Promo />
                 <AboutProject />
                 <Techs />
                 <AboutMe />

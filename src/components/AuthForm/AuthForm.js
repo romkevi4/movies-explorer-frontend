@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom/';
 
 import logo from '../../images/header/header-logo.svg';
 
@@ -9,8 +9,7 @@ export default function AuthForm({
     goToHome,
     formTitle,
     formBtnText,
-    blockInactive,
-    children
+    blockInactive
 }) {
 
     return (
@@ -83,7 +82,10 @@ export default function AuthForm({
                 </button>
             </form>
 
-            {children}
+            <div className="auth__wrapper">
+                <p className="auth__text">Уже зарегистрированы?</p>
+                <Link to="/signin" className="auth__link-auth">Войти</Link>
+            </div>
         </div>
     );
 }

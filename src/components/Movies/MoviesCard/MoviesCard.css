@@ -1,9 +1,8 @@
-/* MoviesCard */
+/* MoviesCard for laptop */
 .movies-card {
   margin: 0;
   padding: 0;
-  width: 270px;
-  height: 229px;
+  width: 100%;
 
   display: flex;
   flex-direction: column;
@@ -19,12 +18,29 @@
   border-bottom: 1px solid #424242;
 
   display: grid;
-  grid-template-columns: minmax(min-content, max-content) 1fr;
+  grid-template-columns: 1fr;
   grid-template-rows: repeat(2, minmax(min-content, max-content));
   grid-template-areas:
-    "poster poster"
-    "name like";
-  gap: 10px 20px;
+    "poster"
+    "wrapper";
+  gap: 14px;
+}
+
+.movies-card__poster {
+  margin: 0;
+  width: 100%;
+
+  grid-area: poster;
+}
+
+.movies-card__wrapper {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  grid-area: wrapper;
 }
 
 .movies-card__name {
@@ -34,18 +50,6 @@
   font-size: 13px;
   font-weight: 500;
   line-height: 1.23;
-
-  grid-area: name;
-  align-self: center;
-  justify-self: start;
-}
-
-.movies-card__poster {
-  margin: 0;
-  min-width: 270px;
-  min-height: 151px;
-
-  grid-area: poster;
 }
 
 .movies-card__btn {
@@ -65,12 +69,10 @@
 
   opacity: 1;
   transition: opacity 180ms linear 2ms;
-
-  grid-area: like;
 }
 
 .movies-card__btn:hover {
-  opacity: .5;
+  opacity: .7;
   cursor: pointer;
 }
 
@@ -93,4 +95,12 @@
   font-weight: 400;
   line-height: 1.18;
   color: #8B8B8B;
+}
+
+
+/* AboutMe for tablet */
+@media screen and (max-width: 768px) {
+  .movies-card__info {
+
+  }
 }

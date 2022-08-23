@@ -1,8 +1,7 @@
 /* Movies for laptop */
 .movies {
   margin: 0 auto;
-  max-width: 1140px;
-  width: 90%;
+  width: 100%;
 
   display: flex;
   flex-direction: column;
@@ -37,12 +36,6 @@
 
 
 /* Movies for tablet */
-@media screen and (max-width: 768px) {
-  .movies {
-    width: 92%;
-  }
-}
-
 @media screen and (max-width: 566px) {
   .movies__btn-increase {
     width: 56.54vw;

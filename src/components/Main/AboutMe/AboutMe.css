@@ -6,6 +6,7 @@
 .about-me__card {
   margin: 66px auto 100px;
   max-width: 1140px;
+  min-width: 284px;
   width: 90%;
 
   display: grid;
@@ -55,8 +56,8 @@
 }
 
 .about-me__photo {
-  width: 270px;
-  height: 327px;
+  max-width: 270px;
+  max-height: 327px;
   border-radius: 10px;
 
   grid-area: photo;
@@ -99,6 +100,7 @@
 .about-me__wrapper {
   margin: 0 auto;
   max-width: 1140px;
+  min-width: 282px;
   width: 90%;
 }
 

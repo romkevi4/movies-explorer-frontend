@@ -7,7 +7,7 @@ import './Movies.css';
 
 export default function Movies() {
     return (
-        <div className="movies">
+        <main className="movies">
             <SearchForm />
             <MoviesCardList />
             <button
@@ -17,6 +17,6 @@ export default function Movies() {
             >
                 Ещё
             </button>
-        </div>
+        </main>
     );
 }

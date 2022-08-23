@@ -75,18 +75,26 @@
 }
 
 
-/* Footer for phone*/
+/* Footer for tablet */
+@media screen and (max-width: 768px) {
+  .footer__title {
+    width: 92.19%;
+  }
+
+  .footer__box {
+    width: 92.19%;
+  }
+}
+
 @media screen and (max-width: 430px) {
   .footer__title {
     padding-bottom: 21px;
-    width: 87%;
 
     font-size: 12px;
   }
 
   .footer__box {
     padding-top: 30px;
-    width: 87%;
 
     display: grid;
     grid-template-columns: 1fr;
@@ -118,5 +126,17 @@
 
   .footer__link:last-of-type {
     margin: 0;
+  }
+}
+
+
+/* Footer for phone*/
+@media screen and (max-width: 320px) {
+  .footer__title {
+    width: 93.75%;
+  }
+
+  .footer__box {
+    width: 93.75%;
   }
 }

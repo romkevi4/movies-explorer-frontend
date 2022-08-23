@@ -45,3 +45,33 @@
   cursor: pointer;
   opacity: .7;
 }
+
+
+/* NotFound for tablet */
+@media screen and (max-width: 768px) {
+  .not-found {
+    padding: 408px 0 222px;
+  }
+}
+
+
+/* NotFound for phone */
+@media screen and (max-width: 320px) {
+  .not-found {
+    padding: 329px 0 30px;
+  }
+
+  .not-found__title {
+    margin: 0 auto 10px;
+    font-size: 80px;
+  }
+
+  .not-found__subtitle {
+    margin: 0 auto 284px;
+    font-size: 12px;
+  }
+
+  .not-found__btn-back {
+    font-size: 12px;
+  }
+}

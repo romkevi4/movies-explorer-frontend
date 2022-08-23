@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import AuthForm from '../AuthForm/AuthForm';
 
@@ -13,10 +12,11 @@ export default function Register() {
             formBtnText="Зарегистрироваться"
             blockInactive=""
         >
-            <p className="auth__text">
-                Уже зарегистрированы?
-                <Link to="/signin" className="auth__link-auth">Войти</Link>
-            </p>
+            {/*<div className="register">*/}
+            {/*    <p className="register__text">Уже зарегистрированы?</p>*/}
+
+            {/*    <Link to="/signin" className="register__link-auth">Войти</Link>*/}
+            {/*</div>*/}
         </AuthForm>
     );
 }

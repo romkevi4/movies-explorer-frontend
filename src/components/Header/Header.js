@@ -1,8 +1,11 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
+import InitialMenu from './InitialMenu/InitialMenu';
+import Navigation from './Navigation/Navigation';
+import BurgerMenu from './BurgerMenu/BurgerMenu';
 
 import logo from '../../images/header/header-logo.svg';
-import iconAccount from '../../images/header/header-icon-account.svg';
 
 import './Header.css';
 
@@ -12,9 +15,13 @@ export default function Header({
     goToRegistration,
     goToMovies,
     goToSavedMovies,
+    isBurgerMenuOpen,
+    onOpenBurgerMenu,
+    onCloseBurgerMenu,
     goToProfile,
     loggedIn
 }) {
+
 
     return (
         <header className={`header ${loggedIn ? '' : 'header_background_active'}`}>
@@ -31,74 +38,34 @@ export default function Header({
                     />
                 </Link>
 
-                <div className={`header__wrapper ${loggedIn ? '' : 'header__wrapper_position_right'}`}>
+                <div className="header__wrapper">
                     { loggedIn
                         ? (
                             <>
-                                <div className="header__laptop">
-                                    <nav className="header__nav">
-                                        <NavLink
-                                            exact
-                                            to={goToMovies}
-                                            // onClick={handleSignOut}
-                                            className="header__link-movies header__link-movies_active"
-                                            activeClassName="header__link-movies_active"
-                                        >
-                                            Фильмы
-                                        </NavLink>
-
-                                        <NavLink
-                                            to={goToSavedMovies}
-                                            // onClick={handleSignOut}
-                                            className="header__link-movies"
-                                            activeClassName="header__link-movies_active"
-                                        >
-                                            Сохранённые фильмы
-                                        </NavLink>
-                                    </nav>
-
-                                    <button
-                                        aria-label="Переход к редактированию аккаунта"
-                                        type="button"
-                                        className="header__btn-account"
-                                    >
-                                        <img
-                                            src={iconAccount}
-                                            alt="Иконка аккаунта"
-                                            className="header__icon-account"
-                                        />
-
-                                        <p className="header__title-account">Аккаунт</p>
-                                    </button>
+                                <div className="header__display-laptop">
+                                    <Navigation
+                                        goToMovies={goToMovies}
+                                        goToSavedMovies={goToSavedMovies}
+                                    />
                                 </div>
 
-                                <div className="header__tablet">
-                                    <button
-                                        aria-label="Меню навигации"
-                                        type="button"
-                                        className="header__btn-burger"
+                                <div className="header__display-tablet">
+                                    <BurgerMenu
+                                        goToHome={goToHome}
+                                        goToMovies={goToMovies}
+                                        goToSavedMovies={goToSavedMovies}
+                                        isBurgerMenuOpen={isBurgerMenuOpen}
+                                        onOpenBurgerMenu={onOpenBurgerMenu}
+                                        onCloseBurgerMenu={onCloseBurgerMenu}
                                     />
                                 </div>
                             </>
                         )
                         : (
-                            <>
-                                <Link
-                                    to={goToRegistration}
-                                    // onClick={handleSignOut}
-                                    className="header__link-registration"
-                                >
-                                    Регистрация
-                                </Link>
+                            <InitialMenu
+                                goToRegistration={goToRegistration}
+                            />
 
-                                <button
-                                    aria-label="Вход в аккаунт"
-                                    type="button"
-                                    className="header__btn-login"
-                                >
-                                    Войти
-                                </button>
-                            </>
                         )
                     }
                 </div>

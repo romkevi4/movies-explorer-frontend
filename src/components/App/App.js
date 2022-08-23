@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import Header from '../Header/Header';
@@ -18,7 +18,21 @@ import NotFound from '../NotFound/NotFound';
 
 import './App.css';
 
+
 export default function App() {
+    // ---------- Переменные состояния ----------
+    const [ isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
+
+
+
+    const handleBurgerMenuClick = () => {
+        setIsBurgerMenuOpen(true);
+    }
+
+    const closeBurgerMenu = () => {
+        setIsBurgerMenuOpen(false);
+    }
+
     return (
         <div className="app">
             <div className="app__page">
@@ -54,6 +68,9 @@ export default function App() {
                             goToRegistration="/signup"
                             goToMovies="/movies"
                             goToSavedMovies="/saved-movies"
+                            isBurgerMenuOpen={isBurgerMenuOpen}
+                            onOpenBurgerMenu={handleBurgerMenuClick}
+                            onCloseBurgerMenu={closeBurgerMenu}
                             goToProfile="/profile"
                             loggedIn="true"
                         />
@@ -68,6 +85,9 @@ export default function App() {
                             goToRegistration="/signup"
                             goToMovies="/movies"
                             goToSavedMovies="/saved-movies"
+                            isBurgerMenuOpen={isBurgerMenuOpen}
+                            onOpenBurgerMenu={handleBurgerMenuClick}
+                            onCloseBurgerMenu={closeBurgerMenu}
                             goToProfile="/profile"
                             loggedIn="true"
                         />
@@ -82,6 +102,9 @@ export default function App() {
                             goToRegistration="/signup"
                             goToMovies="/movies"
                             goToSavedMovies="saved-movies"
+                            isBurgerMenuOpen={isBurgerMenuOpen}
+                            onOpenBurgerMenu={handleBurgerMenuClick}
+                            onCloseBurgerMenu={closeBurgerMenu}
                             goToProfile="/profile"
                             loggedIn="true"
                         />
@@ -98,9 +121,6 @@ export default function App() {
                         <NotFound />
                     </Route>
                 </Switch>
-
-                {/*/!*---------- Попап ----------*!/*/}
-                {/*<EditProfilePopup />*/}
             </div>
         </div>
     );
