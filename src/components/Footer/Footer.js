@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { TELEGRAM, GITHUB, YANDEX_PRACTIKUM } from '../../utils/externalResources';
+
 import './Footer.css';
 
 export default function Footer() {
@@ -14,9 +16,29 @@ export default function Footer() {
                 </time>
 
                 <address className="footer__links">
-                    <Link className="footer__link">Яндекс.Практикум</Link>
-                    <Link className="footer__link">GitHub</Link>
-                    <Link className="footer__link">Telegram</Link>
+                    <Link
+                        to={YANDEX_PRACTIKUM}
+                        className="footer__link"
+                        target="_blank"
+                    >
+                        Яндекс.Практикум
+                    </Link>
+
+                    <Link
+                        to={GITHUB}
+                        className="footer__link"
+                        target="_blank"
+                    >
+                        GitHub
+                    </Link>
+
+                    <Link
+                        to={TELEGRAM}
+                        className="footer__link"
+                        target="_blank"
+                    >
+                        Telegram
+                    </Link>
                 </address>
             </div>
         </footer>

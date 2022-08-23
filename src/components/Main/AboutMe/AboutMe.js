@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import { TELEGRAM, GITHUB, RUSSIAN_TRAVEL, MESTO } from '../../../utils/externalResources';
+
 import photo from '../../../images/about-me/about-me-photo.png';
 import arrow from '../../../images/about-me/about-me-arrow.svg';
 
@@ -26,8 +28,21 @@ export default function AboutMe() {
                     начал заниматься фриланс-заказами и ушёл с постоянной работы.
                 </p>
                 <address className="about-me__social-links">
-                    <Link className="about-me__social-link">GitHub</Link>
-                    <Link className="about-me__social-link">Telegram</Link>
+                    <Link
+                        to={GITHUB}
+                        className="about-me__social-link"
+                        target="_blank"
+                    >
+                        GitHub
+                    </Link>
+
+                    <Link
+                        to={TELEGRAM}
+                        className="about-me__social-link"
+                        target="_blank"
+                    >
+                        Telegram
+                    </Link>
                 </address>
             </article>
 
@@ -35,7 +50,11 @@ export default function AboutMe() {
                 <h3 className="about-me__portfolio">Портфолио</h3>
                 <div className="about-me__site">
                     <p className="about-me__site-name">Статичный сайт</p>
-                    <Link className="about-me__site-link">
+                    <Link
+                        to={RUSSIAN_TRAVEL}
+                        className="about-me__site-link"
+                        target="_blank"
+                    >
                         <img
                             src={arrow}
                             alt="Ссылка на сайт"
@@ -46,7 +65,11 @@ export default function AboutMe() {
 
                 <div className="about-me__site">
                     <p className="about-me__site-name">Адаптивный сайт</p>
-                    <Link className="about-me__site-link">
+                    <Link
+                        to={RUSSIAN_TRAVEL}
+                        className="about-me__site-link"
+                        target="_blank"
+                    >
                         <img
                             src={arrow}
                             alt="Ссылка на сайт"
@@ -57,7 +80,11 @@ export default function AboutMe() {
 
                 <div className="about-me__site">
                     <p className="about-me__site-name">Одностраничное приложение</p>
-                    <Link className="about-me__site-link">
+                    <Link
+                        to={MESTO}
+                        className="about-me__site-link"
+                        target="_blank"
+                    >
                         <img
                             src={arrow}
                             alt="Ссылка на сайт"

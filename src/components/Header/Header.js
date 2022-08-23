@@ -13,6 +13,7 @@ import './Header.css';
 export default function Header({
     goToHome,
     goToRegistration,
+    goToLogin,
     goToMovies,
     goToSavedMovies,
     isBurgerMenuOpen,
@@ -46,6 +47,7 @@ export default function Header({
                                     <Navigation
                                         goToMovies={goToMovies}
                                         goToSavedMovies={goToSavedMovies}
+                                        goToProfile={goToProfile}
                                     />
                                 </div>
 
@@ -64,6 +66,7 @@ export default function Header({
                         : (
                             <InitialMenu
                                 goToRegistration={goToRegistration}
+                                goToLogin={goToLogin}
                             />
 
                         )

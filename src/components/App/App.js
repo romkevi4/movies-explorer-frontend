@@ -42,6 +42,7 @@ export default function App() {
                         <Header
                             goToHome="/"
                             goToRegistration="/signup"
+                            goToLogin="/signin"
                             goToMovies="/movies"
                             goToSavedMovies="/saved-movies"
                             // goToProfile="/profile"
@@ -66,6 +67,7 @@ export default function App() {
                         <Header
                             goToHome="/"
                             goToRegistration="/signup"
+                            goToLogin="/signin"
                             goToMovies="/movies"
                             goToSavedMovies="/saved-movies"
                             isBurgerMenuOpen={isBurgerMenuOpen}
@@ -105,7 +107,7 @@ export default function App() {
                             isBurgerMenuOpen={isBurgerMenuOpen}
                             onOpenBurgerMenu={handleBurgerMenuClick}
                             onCloseBurgerMenu={closeBurgerMenu}
-                            goToProfile="/profile"
+                            // goToProfile="/profile"
                             loggedIn="true"
                         />
                         <Profile />

@@ -3,6 +3,7 @@ import React from 'react';
 import AuthForm from '../AuthForm/AuthForm';
 
 import './Register.css';
+import {Link} from "react-router-dom";
 
 export default function Register() {
     return (
@@ -12,11 +13,10 @@ export default function Register() {
             formBtnText="Зарегистрироваться"
             blockInactive=""
         >
-            {/*<div className="register">*/}
-            {/*    <p className="register__text">Уже зарегистрированы?</p>*/}
-
-            {/*    <Link to="/signin" className="register__link-auth">Войти</Link>*/}
-            {/*</div>*/}
+            <div className="auth__wrapper">
+                <p className="auth__text">Уже зарегистрированы?</p>
+                <Link to="/signin" className="auth__link-auth">Войти</Link>
+            </div>
         </AuthForm>
     );
 }

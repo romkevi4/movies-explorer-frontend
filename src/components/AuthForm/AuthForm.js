@@ -9,7 +9,8 @@ export default function AuthForm({
     goToHome,
     formTitle,
     formBtnText,
-    blockInactive
+    blockInactive,
+    children
 }) {
 
     return (
@@ -82,10 +83,7 @@ export default function AuthForm({
                 </button>
             </form>
 
-            <div className="auth__wrapper">
-                <p className="auth__text">Уже зарегистрированы?</p>
-                <Link to="/signin" className="auth__link-auth">Войти</Link>
-            </div>
+            {children}
         </div>
     );
 }

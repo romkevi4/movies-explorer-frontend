@@ -1,11 +1,15 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 import iconAccount from '../../../images/header/header-icon-account.svg';
 
 import './Navigation.css';
 
-export default function Navigation({ goToMovies, goToSavedMovies }) {
+export default function Navigation({
+    goToMovies,
+    goToSavedMovies,
+    goToProfile
+}) {
     return (
         <div className="navigation">
             <nav className="navigation__nav">
@@ -29,19 +33,21 @@ export default function Navigation({ goToMovies, goToSavedMovies }) {
                 </NavLink>
             </nav>
 
-            <button
-                aria-label="Переход к редактированию аккаунта"
-                type="button"
-                className="navigation__btn-account"
-            >
-                <img
-                    src={iconAccount}
-                    alt="Иконка аккаунта"
-                    className="navigation__icon-account"
-                />
+            <Link to={goToProfile}>
+                <button
+                    aria-label="Переход к редактированию аккаунта"
+                    type="button"
+                    className="navigation__btn-account"
+                >
+                    <img
+                        src={iconAccount}
+                        alt="Иконка аккаунта"
+                        className="navigation__icon-account"
+                    />
 
-                <p className="navigation__title-account">Аккаунт</p>
-            </button>
+                    <p className="navigation__title-account">Аккаунт</p>
+                </button>
+            </Link>
         </div>
     );
 }

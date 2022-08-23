@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import './InitialMenu.css';
 
 
-export default function InitialMenu({ goToRegistration }) {
+export default function InitialMenu({ goToRegistration, goToLogin }) {
     return (
         <div className="initial-menu">
             <Link
@@ -15,13 +15,18 @@ export default function InitialMenu({ goToRegistration }) {
                 Регистрация
             </Link>
 
-            <button
-                aria-label="Вход в аккаунт"
-                type="button"
-                className="initial-menu__btn-login"
+            <Link
+                to={goToLogin}
+                // onClick={handleSignOut}
             >
-                Войти
-            </button>
+                <button
+                    aria-label="Вход в аккаунт"
+                    type="button"
+                    className="initial-menu__btn-login"
+                >
+                    Войти
+                </button>
+            </Link>
         </div>
     );
 }

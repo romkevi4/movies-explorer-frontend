@@ -20,9 +20,9 @@ export default function Profile() {
                         id="profileName"
                     />
                     <label className="profile__label">Имя</label>
-                </div>
+                {/*</div>*/}
 
-                <div className="profile__block">
+                {/*<div className="profile__block">*/}
                     <input
                         type="text"
                         minLength="6"

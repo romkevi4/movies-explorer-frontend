@@ -13,10 +13,10 @@ export default function Login() {
             formBtnText="Войти"
             blockInactive="auth__block_inactive"
         >
-            <p className="auth__text">
-                Ещё не зарегистрированы?
+            <div className="auth__wrapper">
+                <p className="auth__text">Ещё не зарегистрированы?</p>
                 <Link to="/signup" className="auth__link-auth">Регистрация</Link>
-            </p>
+            </div>
         </AuthForm>
     );
 }
