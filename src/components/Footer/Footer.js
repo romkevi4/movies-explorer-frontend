@@ -16,29 +16,29 @@ export default function Footer() {
                 </time>
 
                 <address className="footer__links">
-                    <Link
-                        to={YANDEX_PRACTIKUM}
+                    <a
+                        href={YANDEX_PRACTIKUM}
                         className="footer__link"
                         target="_blank"
                     >
                         Яндекс.Практикум
-                    </Link>
+                    </a>
 
-                    <Link
-                        to={GITHUB}
+                    <a
+                        href={GITHUB}
                         className="footer__link"
                         target="_blank"
                     >
                         GitHub
-                    </Link>
+                    </a>
 
-                    <Link
-                        to={TELEGRAM}
+                    <a
+                        href={TELEGRAM}
                         className="footer__link"
                         target="_blank"
                     >
                         Telegram
-                    </Link>
+                    </a>
                 </address>
             </div>
         </footer>

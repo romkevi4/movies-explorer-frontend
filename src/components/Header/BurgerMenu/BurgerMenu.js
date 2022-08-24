@@ -22,8 +22,7 @@ export default function BurgerMenu({
                 className="burger-menu__btn"
             />
 
-            <div className={`burger-menu__navigation ${isBurgerMenuOpen ? 'burger-menu__navigation_active' : ''}`}
-            >
+            <div className={`burger-menu__navigation ${isBurgerMenuOpen ? 'burger-menu__navigation_active' : ''}`}>
                 <Link
                     to={goToHome}
                     // onClick={handleSignOut}

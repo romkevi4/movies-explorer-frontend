@@ -28,70 +28,76 @@ export default function AboutMe() {
                     начал заниматься фриланс-заказами и ушёл с постоянной работы.
                 </p>
                 <address className="about-me__social-links">
-                    <Link
-                        to={GITHUB}
+                    <a
+                        href={GITHUB}
                         className="about-me__social-link"
                         target="_blank"
                     >
                         GitHub
-                    </Link>
+                    </a>
 
-                    <Link
-                        to={TELEGRAM}
+                    <a
+                        href={TELEGRAM}
                         className="about-me__social-link"
                         target="_blank"
                     >
                         Telegram
-                    </Link>
+                    </a>
                 </address>
             </article>
 
             <aside className="about-me__wrapper">
-                <h3 className="about-me__portfolio">Портфолио</h3>
-                <div className="about-me__site">
-                    <p className="about-me__site-name">Статичный сайт</p>
-                    <Link
-                        to={RUSSIAN_TRAVEL}
-                        className="about-me__site-link"
-                        target="_blank"
-                    >
-                        <img
-                            src={arrow}
-                            alt="Ссылка на сайт"
-                            className="about-me__site-image"
-                        />
-                    </Link>
-                </div>
+                <ul className="about-me__portfolio">
+                    Портфолио
 
-                <div className="about-me__site">
-                    <p className="about-me__site-name">Адаптивный сайт</p>
-                    <Link
-                        to={RUSSIAN_TRAVEL}
-                        className="about-me__site-link"
-                        target="_blank"
-                    >
-                        <img
-                            src={arrow}
-                            alt="Ссылка на сайт"
-                            className="about-me__site-image"
-                        />
-                    </Link>
-                </div>
+                    <li className="about-me__site">
+                        <a
+                            href={RUSSIAN_TRAVEL}
+                            className="about-me__site-link"
+                            target="_blank"
+                        >
+                            <p className="about-me__site-name">Статичный сайт</p>
 
-                <div className="about-me__site">
-                    <p className="about-me__site-name">Одностраничное приложение</p>
-                    <Link
-                        to={MESTO}
-                        className="about-me__site-link"
-                        target="_blank"
-                    >
-                        <img
-                            src={arrow}
-                            alt="Ссылка на сайт"
-                            className="about-me__site-image"
-                        />
-                    </Link>
-                </div>
+                            <img
+                                src={arrow}
+                                alt="Ссылка на сайт"
+                                className="about-me__site-image"
+                            />
+                        </a>
+                    </li>
+
+                    <li className="about-me__site">
+                        <a
+                            href={RUSSIAN_TRAVEL}
+                            className="about-me__site-link"
+                            target="_blank"
+                        >
+                            <p className="about-me__site-name">Адаптивный сайт</p>
+
+                            <img
+                                src={arrow}
+                                alt="Ссылка на сайт"
+                                className="about-me__site-image"
+                            />
+                        </a>
+                    </li>
+
+                    <li className="about-me__site">
+                        <a
+                            href={MESTO}
+                            className="about-me__site-link"
+                            target="_blank"
+                        >
+                            <p className="about-me__site-name">Одностраничное приложение</p>
+
+                            <img
+                                src={arrow}
+                                alt="Ссылка на сайт"
+                                className="about-me__site-image"
+                            />
+                        </a>
+                    </li>
+                </ul>
             </aside>
         </section>
     );

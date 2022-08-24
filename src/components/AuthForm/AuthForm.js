@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom/';
+import { Link } from 'react-router-dom';
 
 import logo from '../../images/header/header-logo.svg';
 
@@ -10,12 +10,20 @@ export default function AuthForm({
     formTitle,
     formBtnText,
     blockInactive,
+    formParams,
+    onChange,
+    onSubmit,
     children
 }) {
 
     return (
         <div className="auth">
-            <form className="auth__form">
+            <form
+                method="post"
+                onSubmit={onSubmit}
+                name="formAuth"
+                className="auth__form"
+            >
                 <Link
                     to={goToHome}
                     // onClick={handleSignOut}
@@ -36,6 +44,8 @@ export default function AuthForm({
                         minLength="6"
                         maxLength="40"
                         name="name"
+                        value={formParams.name || ''}
+                        onChange={onChange}
                         required
                         className="auth__input"
                         id="authName"
@@ -51,6 +61,8 @@ export default function AuthForm({
                         maxLength="40"
                         autoComplete="off"
                         name="email"
+                        value={formParams.email || ''}
+                        onChange={onChange}
                         required
                         className="auth__input"
                         id="authEmail"
@@ -66,6 +78,8 @@ export default function AuthForm({
                         maxLength="40"
                         autoComplete="off"
                         name="password"
+                        value={formParams.password || ''}
+                        onChange={onChange}
                         required
                         className="auth__input"
                         id="authPassword"
