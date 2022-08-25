@@ -1,0 +1,106 @@
+/* MoviesCard for laptop */
+.movies-card {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.movies-card__info {
+  margin: 0;
+  padding: 0 0 25px;
+  width: 100%;
+
+  border-bottom: 1px solid #424242;
+
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2, minmax(min-content, max-content));
+  grid-template-areas:
+    "poster"
+    "wrapper";
+  gap: 14px;
+}
+
+.movies-card__poster {
+  margin: 0;
+  width: 100%;
+
+  grid-area: poster;
+}
+
+.movies-card__wrapper {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  grid-area: wrapper;
+}
+
+.movies-card__name {
+  margin: 0;
+  min-width: 226px;
+
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.23;
+}
+
+.movies-card__btn {
+  margin: 0;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 50%;
+
+  background-color: #313131;
+  background-image: url(../../../images/movies-card/movies-card-like.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 10px 9px;
+  align-items: center;
+
+  opacity: 1;
+  transition: opacity 180ms linear 2ms;
+}
+
+.movies-card__btn:hover {
+  opacity: .7;
+  cursor: pointer;
+}
+
+.movies-card__btn_active {
+  background-image: url(../../../images/movies-card/movies-card-like-active.svg);
+}
+
+.movies-card__btn_active:hover {
+  opacity: 1;
+}
+
+.movies-card__btn_remove {
+  background-image: url(../../../images/movies-card/movies-card-remove.svg);
+}
+
+.movies-card__duration {
+  margin: 6px 0 0;
+
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 1.18;
+  color: #8B8B8B;
+}
+
+
+/* AboutMe for tablet */
+@media screen and (max-width: 768px) {
+  .movies-card__info {
+
+  }
+}

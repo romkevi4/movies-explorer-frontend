@@ -1,0 +1,51 @@
+/* Movies for laptop */
+.movies {
+  margin: 0 auto;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.movies__btn-increase {
+  margin: 60px auto 80px;
+  padding: 0;
+  width: 320px;
+  height: 36px;
+  border: none;
+  border-radius: 6px;
+
+  background-color: #2F2F2F;
+
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.25;
+  text-align: center;
+  color: #fff;
+
+  opacity: 1;
+  transition: opacity 180ms linear 2ms;
+}
+
+.movies__btn-increase:hover {
+  cursor: pointer;
+  opacity: .8;
+}
+
+
+/* Movies for tablet */
+@media screen and (max-width: 566px) {
+  .movies__btn-increase {
+    width: 56.54vw;
+  }
+}
+
+
+/* Movies for phone */
+@media screen and (max-width: 425px) {
+  .movies__btn-increase {
+    width: 240px;
+  }
+}

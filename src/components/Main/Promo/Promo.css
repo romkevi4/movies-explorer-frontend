@@ -1,0 +1,120 @@
+/* Promo for laptop */
+.promo {
+  background-color: #073042;
+}
+
+.promo__container {
+  margin: 0 auto;
+  padding: 0;
+  max-width: 1140px;
+  min-width: 284px;
+  width: 90%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.promo__title {
+  margin: 50px 0 102px;
+  max-width: 626px;
+
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: -0.04em;
+}
+
+.promo__image {
+  margin: 0;
+  padding: 0 0 60px;
+  max-width: 722px;
+  max-height: 244px;
+  align-self: flex-end;
+}
+
+@media screen and (max-width: 802px) {
+  .promo__container {
+    align-items: center;
+  }
+
+  .promo__title {
+    text-align: center;
+  }
+
+  .promo__image {
+    width: 100%;
+    align-self: center;
+  }
+}
+
+
+/* Promo for tablet */
+@media screen and (max-width: 768px) {
+  .promo__container {
+    width: 100%;
+  }
+
+  .promo__title {
+    margin: 300px 0 140px;
+    font-size: 5.3vw;
+    line-height: 6.9vw;
+  }
+
+  .promo__image {
+    padding-bottom: 70px;
+    max-width: 680px;
+    height: 230px;
+  }
+}
+
+@media screen and (max-width: 730px) {
+  .promo__image {
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+/*@media screen and (max-width: 690px) {*/
+/*  .promo__image {*/
+/*    width: 108%;*/
+/*    object-fit: cover;*/
+/*  }*/
+/*}*/
+
+@media screen and (max-width: 669px) {
+  .promo__title {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 566px) {
+  .promo__title {
+    margin: 35vh 0 16.5vh;
+    font-size: 31px;
+    line-height: 1.26;
+  }
+
+  .promo__image {
+    padding-bottom: 8vh;
+  }
+}
+
+@media screen and (max-width: 337px) {
+  .promo__title {
+    width: 300px;
+  }
+}
+
+
+/* Promo for phone */
+@media screen and (max-width: 320px) {
+  .promo__title {
+    margin: 183px 0 60px;
+  }
+
+  .promo__image {
+    padding-bottom: 40px;
+  }
+}

@@ -1,0 +1,36 @@
+/*!* Register *!*/
+/*.register {*/
+/*  margin: 0 0 70px;*/
+
+/*  display: flex;*/
+/*  align-items: center;*/
+/*  justify-content: center;*/
+/*}*/
+
+/*.auth__text {*/
+/*  margin: 0;*/
+/*  width: 100%;*/
+
+/*  font-size: 14px;*/
+/*  font-weight: 500;*/
+/*  line-height: 1.21;*/
+/*  color: #8B8B8B;*/
+/*  text-align: center;*/
+/*}*/
+
+/*.auth__link-auth {*/
+/*  margin: 0 0 0 6px;*/
+
+/*  font-size: 14px;*/
+/*  font-weight: 500;*/
+/*  line-height: 1.21;*/
+/*  color: #4285F4;*/
+
+/*  text-decoration: none;*/
+/*  opacity: 1;*/
+/*  transition: opacity 180ms linear 2ms;*/
+/*}*/
+
+/*.auth__link-auth:hover {*/
+/*  opacity: .7;*/
+/*}*/
