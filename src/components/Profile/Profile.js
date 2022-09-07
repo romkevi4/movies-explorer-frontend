@@ -1,12 +1,38 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
+
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 import './Profile.css';
 
-export default function Profile() {
+export default function Profile({ handleUpdateUser, signOut }) {
+    const currentUser = useContext(CurrentUserContext);
+    const [ formParams, setFormParams ] = useState({
+        name: currentUser.name,
+        email: currentUser.email
+    });
+
+    const onChange = (evt) => {
+        const { name, value } = evt.target;
+        setFormParams((previous) => ({
+            ...previous,
+            [name]: value
+        }));
+    }
+
+    const onSubmit = (evt) => {
+        evt.preventDefault();
+        handleUpdateUser(formParams);
+    }
+
     return (
         <section className="section profile">
-            <form className="profile__form">
-                <h2 className="profile__title">Привет, Роман!</h2>
+            <form
+                method="patch"
+                onSubmit={onSubmit}
+                className="profile__form"
+                name="formProfile"
+            >
+                <h2 className="profile__title">{`Привет, ${formParams.name}!`}</h2>
 
                 <div className="profile__block">
                     <input
@@ -15,19 +41,21 @@ export default function Profile() {
                         maxLength="40"
                         autoComplete="off"
                         name="name"
+                        value={formParams.name || ''}
+                        onChange={onChange}
                         required
                         className="profile__input"
                         id="profileName"
                     />
                     <label className="profile__label">Имя</label>
-                {/*</div>*/}
 
-                {/*<div className="profile__block">*/}
                     <input
                         type="text"
                         minLength="6"
                         maxLength="40"
                         name="email"
+                        value={formParams.email || ''}
+                        onChange={onChange}
                         required
                         className="profile__input"
                         id="profileEmail"
@@ -40,15 +68,16 @@ export default function Profile() {
 
                     <button
                         aria-label="Редактирование профиля"
-                        type="button"
+                        type="submit"
                         className="profile__btn"
                     >
                         Редактировать
                     </button>
 
                     <button
+                        onClick={signOut}
                         aria-label="Выход из аккаунта"
-                        type="button"
+                        type="submit"
                         className="profile__btn profile__btn_red"
                     >
                         Выйти из аккаунта

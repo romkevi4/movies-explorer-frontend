@@ -5,11 +5,14 @@ import MoviesCardList from '../Movies/MoviesCardList/MoviesCardList';
 
 import './SavedMovies.css';
 
-export default function SavedMovies() {
+export default function SavedMovies({ movies}) {
     return (
         <main className="savedMovies">
             <SearchForm />
-            <MoviesCardList />
+            <MoviesCardList
+                movies={movies}
+                isSavedMoviesPage
+            />
         </main>
     );
 }

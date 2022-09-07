@@ -11,6 +11,7 @@ export default function AuthForm({
     formBtnText,
     blockInactive,
     formParams,
+    isInactive,
     onChange,
     onSubmit,
     children
@@ -26,7 +27,6 @@ export default function AuthForm({
             >
                 <Link
                     to={goToHome}
-                    // onClick={handleSignOut}
                     className="auth__link-home"
                 >
                     <img
@@ -39,17 +39,36 @@ export default function AuthForm({
                 <p className="auth__title">{formTitle}</p>
 
                 <div className={`auth__block ${blockInactive}`}>
-                    <input
-                        type="text"
-                        minLength="6"
-                        maxLength="40"
-                        name="name"
-                        value={formParams.name || ''}
-                        onChange={onChange}
-                        required
-                        className="auth__input"
-                        id="authName"
-                    />
+                    {
+                        isInactive
+                            ? (
+                                <input
+                                    type="text"
+                                    minLength="2"
+                                    maxLength="40"
+                                    name="name"
+                                    value={formParams.name || ''}
+                                    onChange={onChange}
+                                    hidden={true}
+                                    className="auth__input"
+                                    id="authName"
+                                />
+                            )
+                            : (
+                                <input
+                                    type="text"
+                                    minLength="2"
+                                    maxLength="40"
+                                    name="name"
+                                    value={formParams.name || ''}
+                                    onChange={onChange}
+                                    required
+                                    className="auth__input"
+                                    id="authName"
+                                />
+                            )
+                    }
+
                     <label className="auth__input-label">Имя</label>
                     {/*<span className="auth__error-text">Что-то пошло не так...</span>*/}
                 </div>

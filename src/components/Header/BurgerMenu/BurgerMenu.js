@@ -9,23 +9,29 @@ export default function BurgerMenu({
     goToHome,
     goToMovies,
     goToSavedMovies,
-    isBurgerMenuOpen,
-    onOpenBurgerMenu,
-    onCloseBurgerMenu
+    goToProfile,
+    isOpen,
+    onOpen,
+    onClose
 }) {
     return (
         <div className="burger-menu">
             <button
                 aria-label="Меню навигации"
                 type="button"
-                onClick={onOpenBurgerMenu}
+                onClick={onOpen}
                 className="burger-menu__btn"
             />
 
-            <div className={`burger-menu__navigation ${isBurgerMenuOpen ? 'burger-menu__navigation_active' : ''}`}>
+            <div
+                className={
+                    isOpen
+                        ? 'burger-menu__navigation burger-menu__navigation_active'
+                        : 'burger-menu__navigation'
+                }
+            >
                 <Link
                     to={goToHome}
-                    // onClick={handleSignOut}
                     className="burger-menu__link-home"
                 >
                     Главная
@@ -34,12 +40,13 @@ export default function BurgerMenu({
                 <Navigation
                     goToMovies={goToMovies}
                     goToSavedMovies={goToSavedMovies}
+                    goToProfile={goToProfile}
                 />
 
                 <button
                     aria-label="Закрыть"
                     type="button"
-                    onClick={onCloseBurgerMenu}
+                    onClick={onClose}
                     className="burger-menu__btn-close"
                 />
             </div>

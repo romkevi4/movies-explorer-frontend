@@ -3,13 +3,13 @@
   margin: 0 auto;
   width: 100%;
 
-  background-color: transparent;
+  background-color: #073042;
 
   position: relative;
 }
 
-.header_background_active {
-  background-color: #073042;
+.header_background_inactive {
+  background-color: transparent;
 }
 
 .header__container {

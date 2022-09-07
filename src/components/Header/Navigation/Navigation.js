@@ -16,7 +16,6 @@ export default function Navigation({
                 <NavLink
                     exact
                     to={goToMovies}
-                    // onClick={handleSignOut}
                     className="navigation__link-movies"
                     activeClassName="navigation__link-movies_active"
                 >
@@ -25,7 +24,6 @@ export default function Navigation({
 
                 <NavLink
                     to={goToSavedMovies}
-                    // onClick={handleSignOut}
                     className="navigation__link-movies"
                     activeClassName="navigation__link-movies_active"
                 >

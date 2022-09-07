@@ -12,7 +12,7 @@ export default function Login({ handleLogin }) {
     });
 
     const handleChange = (evt) => {
-        const { name, value} = evt.target;
+        const { name, value } = evt.target;
         setFormParams((previous) => ({
             ...previous,
             [name]: value
@@ -32,6 +32,7 @@ export default function Login({ handleLogin }) {
             formBtnText="Войти"
             blockInactive="auth__block_inactive"
             formParams={formParams}
+            isInactive
             onChange={handleChange}
             onSubmit={handleSubmit}
         >

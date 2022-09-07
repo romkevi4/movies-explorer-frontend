@@ -1,0 +1,39 @@
+/* InfoTooltip for laptop */
+.infoTooltip {
+  background-color: #202020;
+  border-radius: 10px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, .15);
+}
+
+.infoTooltip__icon {
+  margin: 60px auto 32px;
+  padding: 0;
+  width: 120px;
+  height: 120px;
+}
+
+.infoTooltip__status {
+  margin: 0 auto 60px;
+  width: 396px;
+
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.21;
+  color: #fff;
+  text-align: center;
+}
+
+
+/* InfoTooltip for tablet */
+@media screen and (max-width: 768px) {
+  .infoTooltip__icon {
+    margin: 50px auto 40px;
+  }
+
+  .infoTooltip__status {
+    margin-bottom: 50px;
+    width: 260px;
+
+    font-size: 20px;
+  }
+}

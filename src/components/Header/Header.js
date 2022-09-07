@@ -16,16 +16,16 @@ export default function Header({
     goToLogin,
     goToMovies,
     goToSavedMovies,
+    goToProfile,
     isBurgerMenuOpen,
     onOpenBurgerMenu,
     onCloseBurgerMenu,
-    goToProfile,
-    loggedIn
+    loggedIn,
+    bgStyle
 }) {
 
-
     return (
-        <header className={`header ${loggedIn ? '' : 'header_background_active'}`}>
+        <header className={bgStyle ? 'header' : 'header header_background_inactive'}>
             <div className="header__container">
                 <Link
                     to={goToHome}
@@ -56,9 +56,10 @@ export default function Header({
                                         goToHome={goToHome}
                                         goToMovies={goToMovies}
                                         goToSavedMovies={goToSavedMovies}
-                                        isBurgerMenuOpen={isBurgerMenuOpen}
-                                        onOpenBurgerMenu={onOpenBurgerMenu}
-                                        onCloseBurgerMenu={onCloseBurgerMenu}
+                                        goToProfile={goToProfile}
+                                        isOpen={isBurgerMenuOpen}
+                                        onOpen={onOpenBurgerMenu}
+                                        onClose={onCloseBurgerMenu}
                                     />
                                 </div>
                             </>

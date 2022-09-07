@@ -32,6 +32,7 @@ export default function Register({ handleRegister }) {
             formBtnText="Зарегистрироваться"
             blockInactive=""
             formParams={formParams}
+            isInactive={false}
             onChange={handleChange}
             onSubmit={handleSubmit}
         >

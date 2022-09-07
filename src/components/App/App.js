@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route, Switch, useHistory } from 'react-router-dom';
 
 import { auth } from '../../utils/Auth';
+import { mainApi } from '../../utils/MainApi';
+import { moviesApi } from '../../utils/MoviesApi';
+import adjustedMoviesData from '../../utils/adjustedMoviesData';
 
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
@@ -15,84 +18,182 @@ import Login from '../Login/Login';
 import Profile from '../Profile/Profile';
 
 // import EditProfilePopup from '../Profile/EditProfilePopup/EditProfilePopup';
+import InfoTooltip from '../Popup/InfoTooltip/InfoTooltip';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import NotFound from '../NotFound/NotFound';
-// import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
+// TODO: нужен ли контекст сохраненных фильмов? Перенесены функции в MoviesCardList
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { MoviesContext } from '../../contexts/MoviesContext';
 
 import './App.css';
 
 
 export default function App() {
+    //=============================== Взаимодействие компонентов ===============================
     // ---------- Переменные состояния ----------
     const [ currentUser, setCurrentUser ] = useState({});
 
+    const [ isPreloader, setIsPreloader ] = useState(false);
+    const [ movies, setMovies ] = useState([]);
+    const [ savedMovies, setSavedMovies ] = useState([]);
+
     const [ isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
-    const [ loggedIn, setLoggedIn ] = useState(false);
-    const [ authStatus, setAuthStatus ] = useState(false);
+    const [ loggedIn, setLoggedIn ] = useState(undefined);
+    // const [ isLiked, setIsLiked ] = useState(false);
 
-    const [ cards, setCards ] = useState([]);
+    const [ isAuthStatusPopupOpen, setIsAuthStatusPopupOpen ] = useState(false);
+
     const history = useHistory();
-
 
     // ---------- Управление авторизацией и регистрацией ----------
     const handleRegister = ({ name, email, password }) => {
-        return auth.userRegistration(name, email, password)
-            .then(() => {
-                setAuthStatus(true);
-                history.push('/sugnin');
-            })
+        auth.userRegistration(name, email, password)
+            .then(() => setAutoLogin(email, password))
             .catch(err => {
-                setAuthStatus(false);
-                console.error(`Ошибка: ${err}`);
+                setIsAuthStatusPopupOpen(true);
+                outputErrors(err)
             });
     }
 
-    const handleLogin = ({ email, password }) => {
-        return auth.userAuthorization(email, password)
+    const handleLogin = ({ email, password }) => setAutoLogin(email, password);
+
+    function setAutoLogin(email, password) {
+        auth.userAuthorization(email, password)
             .then(data => {
                 if (data.token) {
                     localStorage.setItem('token', data.token);
-                    tokenCheck();
+                    checkToken();
                 }
             })
             .catch(err => {
-                setAuthStatus(false);
-                console.error(`Ошибка: ${err}`);
-            })
+                setIsAuthStatusPopupOpen(true);
+                outputErrors(err)
+            });
     }
 
-    function tokenCheck() {
-        let token = localStorage.getItem(('token'));
+    function checkToken() {
+        let token = localStorage.getItem('token');
 
         if (token) {
             auth.validityCheck(token)
-                .then(res => res.data)
-                .then(data => {
-                    if (data) {
+                .then(res => {
+                    if (res) {
                         let userData = {
-                            name: data.name,
-                            email: data.email,
-                            _id: data._id
+                            name: res.name,
+                            email: res.email,
+                            _id: res._id
                         }
 
                         setLoggedIn(true);
                         setCurrentUser(userData);
+                        history.push('/movies');
                     }
                 })
+                .catch(err => outputErrors(err));
         }
     }
 
-    const goBack = () => {
-        history.goBack();
-    }
+    useEffect(() => {
+        checkToken();
+    }, []);
 
-    const signOut = () => {
-        localStorage.removeItem('token');
-        setLoggedIn(false);
-        setAuthStatus(false);
+    useEffect(() => {
+        if (loggedIn) {
+            mainApi.setToken();
+
+            getSavedUser();
+            getSavedMovies();
+        }
+    }, [loggedIn])
+
+    // Выход из аккаунта
+    const handleSignOut = () => {
+        setLoggedIn(undefined);
+        setCurrentUser({});
+        setMovies([]);
+        localStorage.clear();
+        // localStorage.removeItem('savedMovies');
         history.push('/');
     }
+
+
+    // ---------- Управление данными пользователя ----------
+    function getSavedUser() {
+        mainApi.getUserData()
+            .then(res => setCurrentUser(res))
+            .catch(err => outputErrors(err));
+    }
+
+    const handleUpdateUser = (objectWithUserData) => {
+        return mainApi.saveUserData(objectWithUserData)
+            .then(res => setCurrentUser(res))
+            .catch(err => outputErrors(err));
+    }
+
+
+    // ---------- Управление данными фильмов ----------
+    function downloadMovies() {
+        setIsPreloader(true);
+
+        moviesApi.getMoviesList()
+            .then(res => {
+                const adjustedMoviesList = res.map(item => adjustedMoviesData(item));
+
+                setMovies(adjustedMoviesList);
+                localStorage.setItem('movies', JSON.stringify(adjustedMoviesList));
+            })
+            .catch(err => outputErrors(err))
+            .finally(() => setIsPreloader(false));
+    }
+
+
+    function getSavedMovies() {
+        mainApi.getSavedMoviesData()
+            .then(res => setSavedMovies(res))
+            .catch(err => outputErrors(err));
+    }
+
+    useEffect(() => {
+        const loadingMovies = localStorage.getItem('movies');
+
+        if (loadingMovies) {
+            try {
+                const moviesList = JSON.parse(loadingMovies);
+                setMovies(moviesList);
+            } catch (err) {
+                localStorage.removeItem('movies');
+                downloadMovies();
+            }
+        } else {
+            downloadMovies();
+        }
+    }, []);
+
+    // const handleMovieLike = (movie) => {
+    //     setIsLiked(savedMovies.some(item => item.movieId === movie.movieId));
+    //
+    //     if (!isLiked) {
+    //         setIsLiked(true);
+    //
+    //         mainApi.saveCardMovie(movie)
+    //             .then((savedCardMovie) => {
+    //                 setSavedMovies(savedCardMovie);
+    //                 localStorage.setItem('savedMovies', JSON.stringify(savedMovies));
+    //             })
+    //             .catch(err => outputErrors(err));
+    //     } else {
+    //         setIsLiked(false);
+    //         handleMovieRemove(movie);
+    //     }
+    // }
+    //
+    // function handleMovieRemove(movie) {
+    //     mainApi.removeCardMovie(movie._id) //TODO: проверить нужен movieId или _id?
+    //         .then(() => getSavedMovies())
+    //         .catch(err => outputErrors(err));
+    // }
+
 
     // ---------- Управление данными бургер-меню ----------
     const handleBurgerMenuClick = () => {
@@ -103,99 +204,156 @@ export default function App() {
         setIsBurgerMenuOpen(false);
     }
 
+    const handleGoBack = () => history.goBack();
+
+    // ---------- Управление попапами ----------
+    const closePopup = () => {
+        setIsAuthStatusPopupOpen(false);
+    }
+
+    // ---------- Валидация форм ----------
+
+
+    // ---------- Вывод ошибок в консоль ----------
+    function outputErrors(err) {
+        return console.error(`Ошибка: ${err}`);
+    }
+
+
+    // =============================== Рендеринг компонентов ===============================
     return (
         <CurrentUserContext.Provider value={currentUser}>
-            <div className="app">
-                <div className="app__page">
-                    <Switch>
-                        {/*---------- О проекте ----------*/}
-                        <Route exact path="/">
-                            <Header
-                                goToHome="/"
-                                goToRegistration="/signup"
-                                goToLogin="/signin"
-                                goToMovies="/movies"
-                                goToSavedMovies="/saved-movies"
-                                // goToProfile="/profile"
-                                // loggedIn="false"
-                            />
-                            <Main />
-                            <Footer />
-                        </Route>
+            <MoviesContext.Provider value={movies}>
+                <div className="app">
+                    <div className="app__page">
+                        <Switch>
+                            {/*---------- О проекте ----------*/}
+                            <Route exact path="/">
+                                <Header
+                                    goToHome="/"
+                                    goToRegistration="/signup"
+                                    goToLogin="/signin"
+                                    goToMovies="/movies"
+                                    goToSavedMovies="/saved-movies"
+                                    goToProfile="/profile"
+                                    isBurgerMenuOpen={isBurgerMenuOpen || false}
+                                    onOpenBurgerMenu={handleBurgerMenuClick || false}
+                                    onCloseBurgerMenu={closeBurgerMenu || false}
+                                    loggedIn={loggedIn}
+                                    bgStyle
+                                />
+                                <Main />
+                                <Footer />
+                            </Route>
 
-                        {/*---------- Аутентификация ----------*/}
-                        <Route path="/signin">
-                            <Login handleLogin={handleLogin}/>
-                        </Route>
+                            {/*---------- Регистрация ----------*/}
+                            <Route path="/signup">
+                                <Register handleRegister={handleRegister} />
 
-                        {/*---------- Регистрация ----------*/}
-                        <Route path="/signup">
-                            <Register handleRegister={handleRegister} />
-                        </Route>
+                                <InfoTooltip
+                                    isOpen={isAuthStatusPopupOpen}
+                                    partOfId="auth-info"
+                                    onClose={closePopup}
+                                    popupClass="infoTooltip"
+                                />
+                            </Route>
 
-                        {/*---------- Фильмы ----------*/}
-                        <Route path="/movies">
-                            <Header
-                                goToHome="/"
-                                goToRegistration="/signup"
-                                goToLogin="/signin"
-                                goToMovies="/movies"
-                                goToSavedMovies="/saved-movies"
-                                isBurgerMenuOpen={isBurgerMenuOpen}
-                                onOpenBurgerMenu={handleBurgerMenuClick}
-                                onCloseBurgerMenu={closeBurgerMenu}
-                                goToProfile="/profile"
-                                loggedIn="true"
-                            />
-                            <Movies />
-                            <Footer />
-                        </Route>
+                            {/*---------- Аутентификация ----------*/}
+                            <Route path="/signin">
+                                <Login handleLogin={handleLogin}/>
 
-                        {/*---------- Сохранённые фильмы ----------*/}
-                        <Route path="/saved-movies">
-                            <Header
-                                goToHome="/"
-                                goToRegistration="/signup"
-                                goToMovies="/movies"
-                                goToSavedMovies="/saved-movies"
-                                isBurgerMenuOpen={isBurgerMenuOpen}
-                                onOpenBurgerMenu={handleBurgerMenuClick}
-                                onCloseBurgerMenu={closeBurgerMenu}
-                                goToProfile="/profile"
-                                loggedIn="true"
-                            />
-                            <SavedMovies />
-                            <Footer />
-                        </Route>
+                                <InfoTooltip
+                                    isOpen={isAuthStatusPopupOpen}
+                                    partOfId="auth-info"
+                                    onClose={closePopup}
+                                    popupClass="infoTooltip"
+                                />
+                            </Route>
 
-                        {/*---------- Профиль ----------*/}
-                        <Route path="/profile">
-                            <Header
-                                goToHome="/"
-                                goToRegistration="/signup"
-                                goToMovies="/movies"
-                                goToSavedMovies="saved-movies"
-                                isBurgerMenuOpen={isBurgerMenuOpen}
-                                onOpenBurgerMenu={handleBurgerMenuClick}
-                                onCloseBurgerMenu={closeBurgerMenu}
-                                // goToProfile="/profile"
-                                loggedIn="true"
-                            />
-                            <Profile />
-                        </Route>
+                            {/*---------- Фильмы ----------*/}
+                                <ProtectedRoute
+                                    path="/movies"
+                                    loggedIn={loggedIn}
+                                >
+                                    <Header
+                                        goToHome="/"
+                                        goToRegistration="/signup"
+                                        goToLogin="/signin"
+                                        goToMovies="/movies"
+                                        goToSavedMovies="/saved-movies"
+                                        goToProfile="/profile"
+                                        isBurgerMenuOpen={isBurgerMenuOpen}
+                                        onOpenBurgerMenu={handleBurgerMenuClick}
+                                        onCloseBurgerMenu={closeBurgerMenu}
+                                        loggedIn={loggedIn}
+                                        bgStyle={false}
+                                    />
+                                    <Movies
+                                        isPreloader={isPreloader}
+                                        // onMovieLike={handleMovieLike}
+                                        // onMovieRemove={handleMovieRemove}
+                                        // isLiked={isLiked}
+                                    />
+                                    <Footer />
+                                </ProtectedRoute>
 
-                        {/*---------- Переадресация ----------*/}
-                        {/*<Route path="/">*/}
-                        {/*    /!*{loggedIn ? <Redirect to="/movies" /> : <Redirect to="/" />}*!/*/}
-                        {/*</Route>*/}
+                            {/*---------- Сохранённые фильмы ----------*/}
+                            <ProtectedRoute
+                                path="/saved-movies"
+                                loggedIn={loggedIn}
+                            >
+                                <Header
+                                    goToHome="/"
+                                    goToRegistration="/signup"
+                                    goToLogin="/signin"
+                                    goToMovies="/movies"
+                                    goToSavedMovies="/saved-movies"
+                                    goToProfile="/profile"
+                                    isBurgerMenuOpen={isBurgerMenuOpen}
+                                    onOpenBurgerMenu={handleBurgerMenuClick}
+                                    onCloseBurgerMenu={closeBurgerMenu}
+                                    loggedIn={loggedIn}
+                                    bgStyle={false}
+                                />
+                                <SavedMovies
+                                    movies={movies}
+                                    isPreloader={isPreloader}
+                                />
+                                <Footer />
+                            </ProtectedRoute>
 
-                        {/*---------- Страница не найдена ----------*/}
-                        <Route path="*">
-                            <NotFound goBack={goBack} />
-                        </Route>
-                    </Switch>
+                            {/*---------- Профиль ----------*/}
+                            <ProtectedRoute
+                                path="/profile"
+                                loggedIn={loggedIn}
+                            >
+                                <Header
+                                    goToHome="/"
+                                    goToRegistration="/signup"
+                                    goToLogin="/signin"
+                                    goToMovies="/movies"
+                                    goToSavedMovies="/saved-movies"
+                                    goToProfile="/profile"
+                                    isBurgerMenuOpen={isBurgerMenuOpen}
+                                    onOpenBurgerMenu={handleBurgerMenuClick}
+                                    onCloseBurgerMenu={closeBurgerMenu}
+                                    loggedIn={loggedIn}
+                                    bgStyle={false}
+                                />
+                                <Profile
+                                    handleUpdateUser={handleUpdateUser}
+                                    signOut={handleSignOut}
+                                />
+                            </ProtectedRoute>
+
+                            {/*---------- Страница не найдена ----------*/}
+                            <Route path="*">
+                                <NotFound goBack={handleGoBack} />
+                            </Route>
+                        </Switch>
+                    </div>
                 </div>
-            </div>
+            </MoviesContext.Provider>
         </CurrentUserContext.Provider>
     );
 }

@@ -1,15 +1,14 @@
 import { authenticationData } from './initialData';
 
 
-// =============================== Формирование класса Api для работы с API ===============================
+// =============================== Формирование класса Api для работы с собственным API ===============================
 class MainApi {
     constructor({ serverAddress }) {
         this._baseUrl = serverAddress;
-        // this._token = token;
     }
 
-    //Получение токена из localStorage
-    _setToken() {
+    // Получение токена из localStorage
+    setToken() {
         this._token = localStorage.getItem('token');
     }
 
@@ -44,16 +43,16 @@ class MainApi {
             },
             body: JSON.stringify({
                 name: objectWithUserData.name,
-                about: objectWithUserData.about
+                email: objectWithUserData.email
             }),
             credentials: 'include'
         })
             .then(this._processResponseData);
     }
 
-    // Запрос получения карточек с сервера
-    getInitialCards() {
-        return fetch(`${this._baseUrl}/cards`, {
+    // Запрос получения всех сохранённых карточек с фильмами с сервера
+    getSavedMoviesData() {
+        return fetch(`${this._baseUrl}/movies`, {
             method: 'GET',
             headers: {
                 authorization: `Bearer ${this._token}`
@@ -63,26 +62,36 @@ class MainApi {
             .then(this._processResponseData);
     }
 
-    // Запрос сохранения новой карточки на сервере
-    saveNewCard(objectWithCardData) {
-        return fetch(`${this._baseUrl}/cards`, {
+    // Запрос сохранения карточки фильма на сервере
+    saveCardMovie(objectWithMovieData) {
+        return fetch(`${this._baseUrl}/movies/${objectWithMovieData.movieId}`, {
             method: 'POST',
             headers: {
                 authorization: `Bearer ${this._token}`,
                 'content-type': 'application/json'
             },
             body: JSON.stringify({
-                name: objectWithCardData.name,
-                link: objectWithCardData.link
+                country: objectWithMovieData.country,
+                director: objectWithMovieData.director,
+                duration: objectWithMovieData.duration,
+                year: objectWithMovieData.year,
+                description: objectWithMovieData.description,
+                image: objectWithMovieData.image,
+                trailerLink: objectWithMovieData.trailerLink,
+                thumbnail: objectWithMovieData.thumbnail,
+                movieId: objectWithMovieData.movieId,
+                trailer: objectWithMovieData.trailer,
+                nameRU: objectWithMovieData.nameRU,
+                nameEN: objectWithMovieData.nameEN
             }),
             credentials: 'include'
         })
             .then(this._processResponseData);
     }
 
-    // Запрос удаления карточки с сервера
-    deleteCard(cardId) {
-        return fetch(`${this._baseUrl}/cards/${cardId}`, {
+    // Запрос удаления карточки фильма с сервера
+    removeCardMovie(movieId) {
+        return fetch(`${this._baseUrl}/movies/${movieId}`, {
             method: 'DELETE',
             headers: {
                 authorization: `Bearer ${this._token}`
@@ -91,39 +100,7 @@ class MainApi {
         })
             .then(this._processResponseData);
     }
-
-    // Запрос на постановку лайка карточки
-    addLikeOfCard(cardId, user) {
-        return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-            method: 'PUT',
-            headers: {
-                authorization: `Bearer ${this._token}`,
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify({
-                likes: user
-            }),
-            credentials: 'include'
-        })
-            .then(this._processResponseData);
-    }
-
-// Запрос на снятие лайка с карточки
-    removeLikeOfCard(cardId, user) {
-        return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
-            method: 'DELETE',
-            headers: {
-                authorization: `Bearer ${this._token}`,
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify({
-                likes: user
-            }),
-            credentials: 'include'
-        })
-            .then(this._processResponseData);
-    }
 }
 
 // Запросы серверу
-export const api = new MainApi(authenticationData);
+export const mainApi = new MainApi(authenticationData);

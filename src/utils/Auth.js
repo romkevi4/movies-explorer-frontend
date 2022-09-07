@@ -1,7 +1,7 @@
 import { authenticationData } from './initialData';
 
 
-// =============================== Формирование класса Auth для работы с API ===============================
+// =============================== Формирование класса Auth для работы с собственным API ===============================
 class Auth {
     constructor({ serverAddress }) {
         this._baseUrl = serverAddress;
@@ -38,7 +38,7 @@ class Auth {
     }
 
     // Авторизация пользователя
-    userAuthorization(passwordData, emailData) {
+    userAuthorization(emailData, passwordData) {
         return fetch(`${this._baseUrl}/signin`, {
             method: 'POST',
             headers: {
@@ -56,8 +56,7 @@ class Auth {
 
     // Проверка валидности токена
     validityCheck(token) {
-        return fetch(`${this._baseUrl}/profile
-        `, {
+        return fetch(`${this._baseUrl}/users/me`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',

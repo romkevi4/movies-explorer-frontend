@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import { TELEGRAM, GITHUB, YANDEX_PRACTIKUM } from '../../utils/externalResources';
 
