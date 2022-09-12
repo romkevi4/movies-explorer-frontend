@@ -1,66 +1,54 @@
 import React from 'react';
 
-// import poster from '../../../images/movies-card/pic__COLOR_pic.png';
-
 import './MoviesCard.css';
 
 export default function MoviesCard({
     movie,
-    onMovieLike,
-    onMovieRemove,
-    isLiked,
-    isSavedMoviesPage,
-    key
+    savedMovies,
+    handleMovieLike,
+    handleMovieRemove,
+    isSavedMoviesPage
 }) {
-    function handleLikeClick() {
-        onMovieLike(movie);
+    function onMovieLike() {
+        handleMovieLike(movie);
     }
 
-    function handleRemoveClick() {
-        onMovieRemove(movie);
+    function onMovieRemove() {
+        handleMovieRemove(movie);
     }
 
-    // function convertTime() {
-    //     console.log(movie);
-    //     console.log(movie.duration);
-    //
-    //     return `${Math.trunc(movie.duration / 60)}ч ${movie.duration % 60}м`;
-    // }
+    let isLiked = savedMovies.some(item => item.movieId === movie.movieId);
+    const movieLikeBtnClassName = (
+        isLiked
+            ? 'movies-card__btn movies-card__btn_active'
+            : 'movies-card__btn'
+    );
+
 
     return (
         <article className="movies-card">
             <div className="movies-card__info">
-                <img
-                    src={movie.image}
-                    alt="Постер фильма"
-                    className="movies-card__poster"
-                />
+                <a href={movie.trailerLink} target="_blank">
+                    <img
+                        src={movie.image}
+                        alt={movie.nameRU === 'Без названия' ? movie.nameEN : movie.nameRU}
+                        className="movies-card__poster"
+                    />
+                </a>
 
                 <div className="movies-card__wrapper">
-                    <h4 className="movies-card__name">{movie.nameRU || movie.nameEN}</h4>
-                    {
-                        isSavedMoviesPage
-                            ? (
-                                <button
-                                    aria-label="Кнопка для удаления"
-                                    type="button"
-                                    onClick={handleRemoveClick}
-                                    className="movies-card__btn movies-card__btn_remove"
-                                />
-                            )
-                            : (
-                                <button
-                                    aria-label="Кнопка для лайка"
-                                    type="button"
-                                    onClick={handleLikeClick}
-                                    className={
-                                        isLiked
-                                            ? 'movies-card__btn movies-card__btn_active'
-                                            : 'movies-card__btn'
-                                    }
-                                />
-                            )
-                    }
+                    <h4 className="movies-card__name">{movie.nameRU === 'Без названия' ? movie.nameEN : movie.nameRU}</h4>
+
+                    <button
+                        aria-label="Кнопка лайк-удаление"
+                        type="button"
+                        onClick={isSavedMoviesPage ? onMovieRemove : onMovieLike}
+                        className={
+                            isSavedMoviesPage
+                                ? 'movies-card__btn movies-card__btn_remove'
+                                : movieLikeBtnClassName
+                        }
+                    />
                 </div>
             </div>
 

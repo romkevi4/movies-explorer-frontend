@@ -10,7 +10,8 @@ export default function InfoTooltip({
     isOpen,
     partOfId,
     onClose,
-    popupClass
+    popupClass,
+    textStatus
 }) {
     return (
         <Popup
@@ -25,7 +26,7 @@ export default function InfoTooltip({
                 className="infoTooltip__icon"
             />
             <p className="infoTooltip__status">
-                Что-то пошло не так! Попробуйте ещё раз.
+                {textStatus}
             </p>
         </Popup>
     );

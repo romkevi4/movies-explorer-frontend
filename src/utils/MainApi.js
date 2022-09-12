@@ -64,34 +64,21 @@ class MainApi {
 
     // Запрос сохранения карточки фильма на сервере
     saveCardMovie(objectWithMovieData) {
-        return fetch(`${this._baseUrl}/movies/${objectWithMovieData.movieId}`, {
+        return fetch(`${this._baseUrl}/movies`, {
             method: 'POST',
             headers: {
                 authorization: `Bearer ${this._token}`,
                 'content-type': 'application/json'
             },
-            body: JSON.stringify({
-                country: objectWithMovieData.country,
-                director: objectWithMovieData.director,
-                duration: objectWithMovieData.duration,
-                year: objectWithMovieData.year,
-                description: objectWithMovieData.description,
-                image: objectWithMovieData.image,
-                trailerLink: objectWithMovieData.trailerLink,
-                thumbnail: objectWithMovieData.thumbnail,
-                movieId: objectWithMovieData.movieId,
-                trailer: objectWithMovieData.trailer,
-                nameRU: objectWithMovieData.nameRU,
-                nameEN: objectWithMovieData.nameEN
-            }),
+            body: JSON.stringify(objectWithMovieData),
             credentials: 'include'
         })
             .then(this._processResponseData);
     }
 
     // Запрос удаления карточки фильма с сервера
-    removeCardMovie(movieId) {
-        return fetch(`${this._baseUrl}/movies/${movieId}`, {
+    removeCardMovie(movie) {
+        return fetch(`${this._baseUrl}/movies/${movie._id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `Bearer ${this._token}`

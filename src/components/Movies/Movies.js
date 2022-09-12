@@ -1,86 +1,119 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
+
+import usePageWithMovies from '../../hooks/usePageWithMovies';
 
 import SearchForm from './SearchForm/SearchForm';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
 
-import searchMovies from '../../utils/searchMovies';
+import { moviesApi } from '../../utils/MoviesApi';
+import adjustedMoviesData from '../../utils/adjustedMoviesData';
 import { INFORMATION_MESSAGE } from '../../utils/initialData';
-
-import { MoviesContext } from '../../contexts/MoviesContext';
 
 import './Movies.css';
 
-export default function Movies({ isPreloader, onMovieLike, onMovieRemove, isLiked }) {
-    const movies = useContext(MoviesContext);
-    const [ updatedMovies, setUpdatedMovies ] = useState([]);
-    const [ requestParams, setRequestParams ] = useState({
-        moviesList: [],
-        textSearch: '',
-        checkbox: false
-    });
-    const [ isSearchSuccessful, setIsSearchSuccessful ] = useState(undefined);
-    const [ infoResponse, setInfoResponse ] = useState('');
 
-    console.log(movies);
+export default function Movies({
+    savedMovies,
+    moviesLength,
+    handleMovieLike,
+    handleMovieRemove,
+    addSavedMoviesOnPage,
+    outputErrors
+}) {
+    const [ isPreloader, setIsPreloader ] = useState(false);
+    // const [ isSearchSuccessful, setIsSearchSuccessful ] = useState(false);
+    // const [ infoResponse, setInfoResponse ] = useState('');
 
-    const handleChangeSearch = (evt) => {
-        const { name, value } = evt.target;
 
-        setRequestParams((previous) => ({
-            ...previous,
-            [name]: value
-        }));
-    }
+    const [ movies, setMovies ] = useState(JSON.parse(localStorage.getItem('movies')) ?? []);
+    const {
+        isSearchSuccessful,
+        setIsSearchSuccessful,
+        infoResponse,
+        setInfoResponse,
+        textSearch,
+        checkbox,
+        updatedMovies,
+        handleChangeSearch,
+        handleChangeCheckbox
+    } = usePageWithMovies(movies, 'textSearch', 'checkbox', 'updatedMovies', getMovies);
+    // const [ textSearch, setTextSearch ] = useState(localStorage.getItem('textSearch') ?? '');
+    // const [ checkbox, setCheckbox ] = useState(JSON.parse(localStorage.getItem('checkbox')) ?? false);
+    //
+    // const sortMovies = useSortMovies(movies, textSearch, checkbox);
+    // const [ updatedMovies, setUpdatedMovies ] = useState(JSON.parse(localStorage.getItem('updatedMovies')) ?? sortMovies);
 
-    const handleChangeCheckbox = (evt) => {
-        setRequestParams(() => ({
-            ...requestParams,
-            checkbox: evt.target.checked
-        }));
-    }
+    // const handleChangeSearch = (text) => {
+    //     getMovies();
+    //
+    //     setTextSearch(text);
+    //     localStorage.setItem('textSearch', text);
+    // }
+    //
+    // const handleChangeCheckbox = (checked) => {
+    //     setCheckbox(checked);
+    //     localStorage.setItem('checkbox', checked);
+    // }
 
-    const handleSubmit = (evt) => {
-        evt.preventDefault();
-        controlRequestParams();
-    }
+    function downloadMovies() {
+        setIsPreloader(true);
 
-    function controlRequestParams() {
-        if (requestParams.textSearch === '') {
-            setIsSearchSuccessful(false);
-            setInfoResponse(INFORMATION_MESSAGE.REQUEST_TEXT);
-        } else {
-            const result = searchMovies(movies, requestParams.textSearch, requestParams.checkbox);
-            setUpdatedMovies(result);
+        moviesApi.getMoviesList()
+            .then(res => {
+                const adjustedMoviesList = res.map(item => adjustedMoviesData(item));
 
-            setRequestParams(() =>({
-                ...requestParams,
-                moviesList: result
-            }));
+                setMovies(adjustedMoviesList);
+                localStorage.setItem('movies', JSON.stringify(adjustedMoviesList));
+            })
+            .catch(() => {
+                outputErrors(INFORMATION_MESSAGE.REQUEST_ERROR);
 
-            if (result.length === 0) {
                 setIsSearchSuccessful(false);
-                setInfoResponse(INFORMATION_MESSAGE.NOTHING_FOUND);
-            } else {
-                setIsSearchSuccessful(true);
-            }
-        }
+                setInfoResponse(INFORMATION_MESSAGE.REQUEST_ERROR);
+            })
+            .finally(() => setIsPreloader(false));
     }
+
+    function getMovies() {
+        return movies.length === 0 && downloadMovies();
+    }
+
+    // useEffect(() => {
+    //     if (movies.length && !sortMovies.length) {
+    //         setIsSearchSuccessful(false);
+    //         setInfoResponse(INFORMATION_MESSAGE.NOTHING_FOUND);
+    //     }
+    // }, [movies.length, sortMovies.length]);
+    //
+    // useEffect(() => {
+    //     if (updatedMovies !== sortMovies && sortMovies.length) {
+    //         setIsSearchSuccessful(true);
+    //
+    //         setUpdatedMovies(sortMovies);
+    //         localStorage.setItem('updatedMovies', JSON.stringify(sortMovies));
+    //     }
+    // }, [sortMovies, updatedMovies, sortMovies.length]);
+
 
     return (
         <main className="movies">
             <SearchForm
-                requestParams={requestParams}
+                textSearch={textSearch}
+                checkbox={checkbox}
                 onChange={handleChangeSearch}
                 onChangeCheckbox={handleChangeCheckbox}
-                onSubmit={handleSubmit}
+                disabledCheckbox={!textSearch}
             />
 
             <MoviesCardList
-                updatedMovies={updatedMovies}
                 isPreloader={isPreloader}
+                currentMovies={updatedMovies}
+                savedMovies={savedMovies}
+                moviesLength={moviesLength}
                 // onMovieLike={onMovieLike}
-                // onMovieRemove={onMovieRemove}
                 // isLiked={isLiked}
+                handleMovieLike={handleMovieLike}
+                handleMovieRemove={handleMovieRemove}
                 infoResponse={infoResponse}
                 isSearchSuccessful={isSearchSuccessful}
                 isSavedMoviesPage={false}
@@ -90,6 +123,7 @@ export default function Movies({ isPreloader, onMovieLike, onMovieRemove, isLike
             <button
                 aria-label="Увеличение количества отображаемых фильмов"
                 type="button"
+                onClick={addSavedMoviesOnPage}
                 className="movies__btn-increase"
             >
                 Ещё

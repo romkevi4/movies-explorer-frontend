@@ -1,17 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
+import useFormWithValidation from '../../../hooks/useFormWithValidation';
+
+import InfoTooltip from '../../Popup/InfoTooltip/InfoTooltip';
+import CheckboxInput from './CheckboxInput/CheckboxInput';
+
+import { INFORMATION_MESSAGE } from '../../../utils/initialData';
 
 import arrow from '../../../images/search/search-arrow.svg';
-
 import './SearchForm.css';
 
-export default function SearchForm({ requestParams, onChange, onChangeCheckbox, onSubmit }) {
-    localStorage.setItem('requestParams', JSON.stringify(requestParams));
+export default function SearchForm({ textSearch, checkbox, onChange, onChangeCheckbox, disabledCheckbox }) {
+    const {
+        values,
+        handleChange,
+        isValid,
+        errors,
+        setErrors
+    } = useFormWithValidation();
+    const [ isAuthStatusPopupOpen, setIsAuthStatusPopupOpen ] = useState(false);
 
-    // console.log(JSON.parse(localStorage.getItem('requestParams')));
 
-    // function setValueOfParams() {
-    //     return JSON.parse(localStorage.getItem('requestParams'));
-    // }
+    function onClose() {
+        setIsAuthStatusPopupOpen(false);
+    }
+
+    const onSubmit = (evt) => {
+        evt.preventDefault();
+        isValid ? onChange(values.search) : setIsAuthStatusPopupOpen(true);
+    }
+
+    useEffect(() => {
+        setErrors({ search: "Фильм" })
+    }, []);
+
 
     return (
         <section className="section search">
@@ -23,15 +45,14 @@ export default function SearchForm({ requestParams, onChange, onChangeCheckbox, 
                 <input
                     type="search"
                     minLength="2"
-                    name="textSearch"
-                    placeholder="Фильм"
-                    value={requestParams.textSearch || ''}
-                    onChange={onChange}
+                    name="search"
+                    placeholder={isValid ? '' : errors.search}
+                    defaultValue={textSearch}
+                    onChange={handleChange}
                     required
                     className="search__input"
                     id="searchMovies"
                 />
-                {/*<span className="search__error-text"></span>*/}
 
                 <button
                     aria-label="Отправка формы"
@@ -40,23 +61,24 @@ export default function SearchForm({ requestParams, onChange, onChangeCheckbox, 
                 >
                     <img
                         src={arrow}
-                        alt="Стрелка в строке поиска"
+                        alt="Иконка в виде стрелки в строке поиска"
                         className="search__image-arrow"
                     />
                 </button>
 
-                <div className="search__wrapper">
-                    <input
-                        type="checkbox"
-                        name="checkbox"
-                        checked={requestParams.checkbox}
-                        onChange={onChangeCheckbox}
-                        required
-                        className="search__checkbox"
-                    />
+                <CheckboxInput
+                    onChecked={checkbox}
+                    onChangeCheckbox={onChangeCheckbox}
+                    disabledCheckbox={disabledCheckbox}
+                />
 
-                    <label className="search__signature">Короткометражки</label>
-                </div>
+                <InfoTooltip
+                    isOpen={isAuthStatusPopupOpen}
+                    partOfId="auth-info"
+                    onClose={onClose}
+                    popupClass="infoTooltip"
+                    textStatus={INFORMATION_MESSAGE.REQUEST_TEXT}
+                />
             </form>
         </section>
     );
