@@ -233,7 +233,7 @@ export default function App() {
 
     // ---------- Вывод ошибок в консоль ----------
     function outputErrors(err) {
-        return console.error(`Ошибка: ${err.message}`);
+        return console.error(`Ошибка: ${err}`);
     }
 
 
