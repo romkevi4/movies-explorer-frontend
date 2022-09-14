@@ -1,7 +1,6 @@
 import React from 'react';
 
 import logoPromo from '../../../images/promo/promo-logo.svg'
-
 import './Promo.css';
 
 export default function Promo() {

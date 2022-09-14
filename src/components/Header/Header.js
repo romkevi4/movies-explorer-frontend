@@ -29,7 +29,6 @@ export default function Header({
             <div className="header__container">
                 <Link
                     to={goToHome}
-                    // onClick={handleSignOut}
                     className="header__link-about-project"
                 >
                     <img

@@ -1,5 +1,6 @@
 import defaultImage from '../images/movies-card/default-image.jpg';
 
+
 export default function adjustedMoviesData(movie) {
     const {
         country,

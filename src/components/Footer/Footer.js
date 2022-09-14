@@ -4,6 +4,7 @@ import { TELEGRAM, GITHUB, YANDEX_PRACTIKUM } from '../../utils/externalResource
 
 import './Footer.css';
 
+
 export default function Footer() {
     return (
         <footer className="footer">

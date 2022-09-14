@@ -7,6 +7,7 @@ import MoviesCardList from '../Movies/MoviesCardList/MoviesCardList';
 
 import './SavedMovies.css';
 
+
 export default function SavedMovies({ savedMovies, moviesLength, handleMovieRemove }) {
     const {
         isSearchSuccessful,
@@ -17,6 +18,7 @@ export default function SavedMovies({ savedMovies, moviesLength, handleMovieRemo
         handleChangeCheckbox
     } = usePageWithMovies(savedMovies, 'savedTextSearch', 'savedCheckbox', 'savedMovies');
 
+
     return (
         <main className="savedMovies">
             <SearchForm
@@ -26,10 +28,11 @@ export default function SavedMovies({ savedMovies, moviesLength, handleMovieRemo
                 onChangeCheckbox={handleChangeCheckbox}
                 disabledCheckbox={!textSearch}
             />
+
             <MoviesCardList
                 currentMovies={updatedMovies}
                 savedMovies={savedMovies}
-                // moviesLength={moviesLength}
+                moviesLength={moviesLength}
                 handleMovieRemove={handleMovieRemove}
                 isSearchSuccessful={isSearchSuccessful}
                 isSavedMoviesPage

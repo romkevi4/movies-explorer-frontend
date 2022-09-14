@@ -1,16 +1,18 @@
 import React from 'react';
 
-import iconError from '../../../images/popup/popup__icon_error.svg';
-
 import Popup from '../Popup';
 
+import iconCorrect from '../../../images/popup/popup__icon_correct.svg';
+import iconError from '../../../images/popup/popup__icon_error.svg';
 import './InfoTooltip.css';
+
 
 export default function InfoTooltip({
     isOpen,
     partOfId,
     onClose,
     popupClass,
+    isStatus,
     textStatus
 }) {
     return (
@@ -21,10 +23,11 @@ export default function InfoTooltip({
             popupClass={popupClass}
         >
             <img
-                src={iconError}
+                src={isStatus ? iconCorrect : iconError}
                 alt="Подсказка"
                 className="infoTooltip__icon"
             />
+
             <p className="infoTooltip__status">
                 {textStatus}
             </p>

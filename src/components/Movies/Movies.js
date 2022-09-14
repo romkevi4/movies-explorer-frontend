@@ -21,9 +21,6 @@ export default function Movies({
     outputErrors
 }) {
     const [ isPreloader, setIsPreloader ] = useState(false);
-    // const [ isSearchSuccessful, setIsSearchSuccessful ] = useState(false);
-    // const [ infoResponse, setInfoResponse ] = useState('');
-
 
     const [ movies, setMovies ] = useState(JSON.parse(localStorage.getItem('movies')) ?? []);
     const {
@@ -33,27 +30,12 @@ export default function Movies({
         setInfoResponse,
         textSearch,
         checkbox,
+        sortMovies,
         updatedMovies,
         handleChangeSearch,
         handleChangeCheckbox
     } = usePageWithMovies(movies, 'textSearch', 'checkbox', 'updatedMovies', getMovies);
-    // const [ textSearch, setTextSearch ] = useState(localStorage.getItem('textSearch') ?? '');
-    // const [ checkbox, setCheckbox ] = useState(JSON.parse(localStorage.getItem('checkbox')) ?? false);
-    //
-    // const sortMovies = useSortMovies(movies, textSearch, checkbox);
-    // const [ updatedMovies, setUpdatedMovies ] = useState(JSON.parse(localStorage.getItem('updatedMovies')) ?? sortMovies);
 
-    // const handleChangeSearch = (text) => {
-    //     getMovies();
-    //
-    //     setTextSearch(text);
-    //     localStorage.setItem('textSearch', text);
-    // }
-    //
-    // const handleChangeCheckbox = (checked) => {
-    //     setCheckbox(checked);
-    //     localStorage.setItem('checkbox', checked);
-    // }
 
     function downloadMovies() {
         setIsPreloader(true);
@@ -78,22 +60,6 @@ export default function Movies({
         return movies.length === 0 && downloadMovies();
     }
 
-    // useEffect(() => {
-    //     if (movies.length && !sortMovies.length) {
-    //         setIsSearchSuccessful(false);
-    //         setInfoResponse(INFORMATION_MESSAGE.NOTHING_FOUND);
-    //     }
-    // }, [movies.length, sortMovies.length]);
-    //
-    // useEffect(() => {
-    //     if (updatedMovies !== sortMovies && sortMovies.length) {
-    //         setIsSearchSuccessful(true);
-    //
-    //         setUpdatedMovies(sortMovies);
-    //         localStorage.setItem('updatedMovies', JSON.stringify(sortMovies));
-    //     }
-    // }, [sortMovies, updatedMovies, sortMovies.length]);
-
 
     return (
         <main className="movies">
@@ -102,7 +68,6 @@ export default function Movies({
                 checkbox={checkbox}
                 onChange={handleChangeSearch}
                 onChangeCheckbox={handleChangeCheckbox}
-                disabledCheckbox={!textSearch}
             />
 
             <MoviesCardList
@@ -110,8 +75,6 @@ export default function Movies({
                 currentMovies={updatedMovies}
                 savedMovies={savedMovies}
                 moviesLength={moviesLength}
-                // onMovieLike={onMovieLike}
-                // isLiked={isLiked}
                 handleMovieLike={handleMovieLike}
                 handleMovieRemove={handleMovieRemove}
                 infoResponse={infoResponse}
@@ -119,15 +82,19 @@ export default function Movies({
                 isSavedMoviesPage={false}
             />
 
-            {/*TODO: добавить активное состояние кнопки*/}
-            <button
-                aria-label="Увеличение количества отображаемых фильмов"
-                type="button"
-                onClick={addSavedMoviesOnPage}
-                className="movies__btn-increase"
-            >
-                Ещё
-            </button>
+            {
+                isSearchSuccessful && sortMovies.length > moviesLength
+                    && (
+                        <button
+                            aria-label="Увеличение количества отображаемых фильмов"
+                            type="button"
+                            onClick={addSavedMoviesOnPage}
+                            className="movies__btn-increase"
+                        >
+                            Ещё
+                        </button>
+                    )
+            }
         </main>
     );
 }

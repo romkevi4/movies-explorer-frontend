@@ -9,16 +9,12 @@ export default function InitialMenu({ goToRegistration, goToLogin }) {
         <div className="initial-menu">
             <Link
                 to={goToRegistration}
-                // onClick={handleSignOut}
                 className="initial-menu__link-registration"
             >
                 Регистрация
             </Link>
 
-            <Link
-                to={goToLogin}
-                // onClick={handleSignOut}
-            >
+            <Link to={goToLogin} >
                 <button
                     aria-label="Вход в аккаунт"
                     type="button"

@@ -102,11 +102,3 @@
   line-height: 1.18;
   color: #8B8B8B;
 }
-
-
-/* AboutMe for tablet */
-@media screen and (max-width: 768px) {
-  .movies-card {
-
-  }
-}

@@ -2,6 +2,7 @@ import React from 'react';
 
 import './Preloader.css';
 
+
 export default function Preloader({ isPreloader }) {
     return (
         <div className={isPreloader ? 'loader loader_active' : 'loader'}>

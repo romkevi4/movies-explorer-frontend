@@ -2,7 +2,6 @@ import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 
 import iconAccount from '../../../images/header/header-icon-account.svg';
-
 import './Navigation.css';
 
 export default function Navigation({

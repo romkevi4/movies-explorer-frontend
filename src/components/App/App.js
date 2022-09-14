@@ -6,8 +6,6 @@ import useCurrentWidthScreen from '../../hooks/useCurrentWidthScreen';
 import { auth } from '../../utils/Auth';
 import { mainApi } from '../../utils/MainApi';
 import { INFORMATION_MESSAGE } from '../../utils/initialData';
-// import { moviesApi } from '../../utils/MoviesApi';
-// import adjustedMoviesData from '../../utils/adjustedMoviesData';
 
 import Register from '../Register/Register';
 import Login from '../Login/Login';
@@ -20,7 +18,6 @@ import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 
-// import EditProfilePopup from '../Profile/EditProfilePopup/EditProfilePopup';
 import InfoTooltip from '../Popup/InfoTooltip/InfoTooltip';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import NotFound from '../NotFound/NotFound';
@@ -36,14 +33,18 @@ export default function App() {
     const [ currentUser, setCurrentUser ] = useState({});
 
     const [ savedMovies, setSavedMovies ] = useState(JSON.parse(localStorage.getItem('savedMovies')) ?? []);
-    const [ moviesLength, setMoviesLength ] = useState(4);
-    const [ amountOfMovies, setAmountOfMovies ] =useState(16);
+    const [ moviesLength, setMoviesLength ] = useState(16);
+    const [ amountOfMovies, setAmountOfMovies ] = useState(4);
     const width = useCurrentWidthScreen();
 
     const [ isBurgerMenuOpen, setIsBurgerMenuOpen] = useState(false);
     const [ loggedIn, setLoggedIn ] = useState(undefined);
 
-    const [ isAuthStatusPopupOpen, setIsAuthStatusPopupOpen ] = useState(false);
+    const [ isEdit, setIsEdit ] = useState(false);
+
+    const [ isStatus, setIsStatus ] = useState(false);
+    const [ isStatusPopupOpen, setIsStatusPopupOpen ] = useState(false);
+    const [ textStatus, setTextStatus ] = useState('');
 
     const history = useHistory();
 
@@ -53,7 +54,7 @@ export default function App() {
         auth.userRegistration(name, email, password)
             .then(() => setAutoLogin(email, password))
             .catch(err => {
-                setIsAuthStatusPopupOpen(true);
+                setIsStatusPopupOpen(true);
                 outputErrors(err);
             });
     }
@@ -69,7 +70,7 @@ export default function App() {
                 }
             })
             .catch(err => {
-                setIsAuthStatusPopupOpen(true);
+                setIsStatusPopupOpen(true);
                 outputErrors(err);
             });
     }
@@ -127,8 +128,24 @@ export default function App() {
 
     const handleUpdateUser = (objectWithUserData) => {
         return mainApi.saveUserData(objectWithUserData)
-            .then(data => setCurrentUser(data))
-            .catch(err => outputErrors(err));
+            .then(data => {
+                setCurrentUser(data);
+                setIsEdit(false);
+                setIsStatus(true);
+                setTextStatus(INFORMATION_MESSAGE.OK);
+            })
+            .catch(err => {
+                outputErrors(err);
+                setIsStatus(false);
+                setTextStatus(INFORMATION_MESSAGE.REPEAT);
+            })
+            .finally(() => {
+                setIsStatusPopupOpen(true);
+            });
+    }
+
+    function onClickEditProfile() {
+        return setIsEdit(true);
     }
 
 
@@ -175,27 +192,21 @@ export default function App() {
             .catch(err => outputErrors(err));
     }
 
-    // useEffect(() => {
-    //     if (loggedIn && savedMovies.length === 0) {
-    //         getSavedMovies();
-    //     }
-    // }, [loggedIn, savedMovies.length]);
-
 
     // ---------- Управление карточками фильмов ----------
     useEffect(() => {
         if (width >= 1267) {
-            setMoviesLength(4);
-            setAmountOfMovies(16);
+            setMoviesLength(16);
+            setAmountOfMovies(4);
         } else if (width < 1267) {
-            setMoviesLength(3);
-            setAmountOfMovies(12);
+            setMoviesLength(12);
+            setAmountOfMovies(3);
         } else if (width < 945) {
-            setMoviesLength(2);
-            setAmountOfMovies(8);
+            setMoviesLength(8);
+            setAmountOfMovies(2);
         } else if (width < 619) {
-            setMoviesLength(1);
-            setAmountOfMovies(5);
+            setMoviesLength(5);
+            setAmountOfMovies(1);
         }
     }, [width]);
 
@@ -213,20 +224,21 @@ export default function App() {
         setIsBurgerMenuOpen(false);
     }
 
-    const handleGoBack = () => history.goBack();
 
     // ---------- Управление попапами ----------
     const closePopup = () => {
-        setIsAuthStatusPopupOpen(false);
+        setIsStatusPopupOpen(false);
     }
-
-    // ---------- Валидация форм ----------
 
 
     // ---------- Вывод ошибок в консоль ----------
     function outputErrors(err) {
-        return console.error(`Ошибка: ${err}`);
+        return console.error(`Ошибка: ${err.message}`);
     }
+
+
+    // ---------- Возвращение на предыдущую страницу ----------
+    const handleGoBack = () => history.goBack();
 
 
     // =============================== Рендеринг компонентов ===============================
@@ -258,26 +270,34 @@ export default function App() {
 
                         {/*---------- Регистрация ----------*/}
                         <Route path="/signup">
-                            <Register handleRegister={handleRegister} />
+                            <Register
+                                handleRegister={handleRegister}
+                                outputErrors={outputErrors}
+                            />
 
                             <InfoTooltip
-                                isOpen={isAuthStatusPopupOpen}
+                                isOpen={isStatusPopupOpen}
                                 partOfId="auth-info"
                                 onClose={closePopup}
                                 popupClass="infoTooltip"
+                                isStatus={false}
                                 textStatus={INFORMATION_MESSAGE.REPEAT}
                             />
                         </Route>
 
                         {/*---------- Аутентификация ----------*/}
                         <Route path="/signin">
-                            <Login handleLogin={handleLogin}/>
+                            <Login
+                                handleLogin={handleLogin}
+                                outputErrors={outputErrors}
+                            />
 
                             <InfoTooltip
-                                isOpen={isAuthStatusPopupOpen}
+                                isOpen={isStatusPopupOpen}
                                 partOfId="auth-info"
                                 onClose={closePopup}
                                 popupClass="infoTooltip"
+                                isStatus={false}
                                 textStatus={INFORMATION_MESSAGE.REPEAT}
                             />
                         </Route>
@@ -303,7 +323,6 @@ export default function App() {
 
                                 <Movies
                                     savedMovies={savedMovies}
-                                    // onMovieLike={handleMovieLike}
                                     moviesLength={moviesLength}
                                     handleMovieLike={handleMovieLike}
                                     handleMovieRemove={handleMovieRemove}
@@ -363,6 +382,12 @@ export default function App() {
 
                             <Profile
                                 handleUpdateUser={handleUpdateUser}
+                                onClickEditProfile={onClickEditProfile}
+                                isEdit={isEdit}
+                                isStatus={isStatus}
+                                isStatusPopupOpen={isStatusPopupOpen}
+                                textStatus={textStatus}
+                                closePopup={closePopup}
                                 signOut={handleSignOut}
                             />
                         </ProtectedRoute>

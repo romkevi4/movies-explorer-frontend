@@ -63,6 +63,7 @@
   display: none
 }
 
+
 /* Header for tablet */
 @media screen and (max-width: 768px) {
   .header__container {
@@ -79,6 +80,7 @@
     justify-content: flex-end;
   }
 }
+
 
 /* Header for phone */
 @media screen and (max-width: 320px) {

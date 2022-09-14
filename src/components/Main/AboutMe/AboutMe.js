@@ -4,7 +4,6 @@ import { TELEGRAM, GITHUB, RUSSIAN_TRAVEL, MESTO } from '../../../utils/external
 
 import photo from '../../../images/about-me/about-me-photo.png';
 import arrow from '../../../images/about-me/about-me-arrow.svg';
-
 import './AboutMe.css';
 
 export default function AboutMe() {

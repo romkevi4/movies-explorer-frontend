@@ -10,7 +10,7 @@ import { INFORMATION_MESSAGE } from '../../../utils/initialData';
 import arrow from '../../../images/search/search-arrow.svg';
 import './SearchForm.css';
 
-export default function SearchForm({ textSearch, checkbox, onChange, onChangeCheckbox, disabledCheckbox }) {
+export default function SearchForm({ textSearch, checkbox, onChange, onChangeCheckbox }) {
     const {
         values,
         handleChange,
@@ -18,16 +18,16 @@ export default function SearchForm({ textSearch, checkbox, onChange, onChangeChe
         errors,
         setErrors
     } = useFormWithValidation();
-    const [ isAuthStatusPopupOpen, setIsAuthStatusPopupOpen ] = useState(false);
+    const [ isOpen, setIsOpen ] = useState(false);
 
 
     function onClose() {
-        setIsAuthStatusPopupOpen(false);
+        setIsOpen(false);
     }
 
     const onSubmit = (evt) => {
         evt.preventDefault();
-        isValid ? onChange(values.search) : setIsAuthStatusPopupOpen(true);
+        isValid ? onChange(values.search) : setIsOpen(true);
     }
 
     useEffect(() => {
@@ -50,6 +50,7 @@ export default function SearchForm({ textSearch, checkbox, onChange, onChangeChe
                     defaultValue={textSearch}
                     onChange={handleChange}
                     required
+                    autoComplete="off"
                     className="search__input"
                     id="searchMovies"
                 />
@@ -69,14 +70,14 @@ export default function SearchForm({ textSearch, checkbox, onChange, onChangeChe
                 <CheckboxInput
                     onChecked={checkbox}
                     onChangeCheckbox={onChangeCheckbox}
-                    disabledCheckbox={disabledCheckbox}
                 />
 
                 <InfoTooltip
-                    isOpen={isAuthStatusPopupOpen}
-                    partOfId="auth-info"
+                    isOpen={isOpen}
+                    partOfId="search-info"
                     onClose={onClose}
                     popupClass="infoTooltip"
+                    isStatus={false}
                     textStatus={INFORMATION_MESSAGE.REQUEST_TEXT}
                 />
             </form>

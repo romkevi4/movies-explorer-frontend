@@ -171,7 +171,6 @@
   height: 20px;
 }
 
-
 @media screen and (max-width: 1000px) {
   .about-me__name {
     width: 80%;

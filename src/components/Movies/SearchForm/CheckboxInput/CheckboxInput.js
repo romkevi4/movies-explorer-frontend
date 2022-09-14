@@ -3,7 +3,7 @@ import React from 'react';
 import './CheckboxInput.css'
 
 
-export default function CheckboxInput({ onChecked, onChangeCheckbox, disabledCheckbox }) {
+export default function CheckboxInput({ onChecked, onChangeCheckbox }) {
     function onChange(evt) {
         onChangeCheckbox(evt.target.checked);
     }
@@ -15,7 +15,6 @@ export default function CheckboxInput({ onChecked, onChangeCheckbox, disabledChe
                 name="checkbox"
                 defaultChecked={onChecked}
                 onChange={onChange}
-                disabled={disabledCheckbox}
                 className="checkbox-input__toggle"
             />
 

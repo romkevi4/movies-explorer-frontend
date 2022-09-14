@@ -22,12 +22,11 @@ export default function MoviesCardList({
             <Preloader isPreloader={isPreloader} />
 
             {
-                // TODO: значение isSearchSuccessful true или false в зависимости от результата поиска
                 isSearchSuccessful
                     ? (
                         <div className="movies-card-list__block">
                             {
-                                currentMovies.slice(0, 16).map(movie => {
+                                currentMovies.slice(0, moviesLength).map(movie => {
                                     return (
                                         <MoviesCard
                                             movie={movie}

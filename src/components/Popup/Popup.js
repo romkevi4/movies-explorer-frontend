@@ -2,34 +2,26 @@ import React, { useEffect } from 'react';
 
 import './Popup.css';
 
+
 export default function Popup({
-        isOpen,
-        partOfId,
-        onClose,
-        popupClass,
-        children
-    }) {
+    isOpen,
+    partOfId,
+    onClose,
+    popupClass,
+    children
+}) {
     
     useEffect(() => {
         if (!isOpen) return;
 
-        const closeByEscape = (evt) => {
-            if (evt.key === 'Escape') {
-                onClose();
-            }
-        };
+        const closeByEscape = (evt) => evt.key === 'Escape' && onClose();
 
         document.addEventListener('keydown', closeByEscape);
 
         return () => document.removeEventListener('keydown', closeByEscape);
-
     }, [isOpen, onClose]);
 
-    const handleOverlay = (evt) => {
-        if (evt.target === evt.currentTarget) {
-            onClose();
-        }
-    }
+    const handleOverlay = (evt) => evt.target === evt.currentTarget && onClose();
 
 
     return (

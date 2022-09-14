@@ -76,13 +76,6 @@
   }
 }
 
-/*@media screen and (max-width: 690px) {*/
-/*  .promo__image {*/
-/*    width: 108%;*/
-/*    object-fit: cover;*/
-/*  }*/
-/*}*/
-
 @media screen and (max-width: 669px) {
   .promo__title {
     width: 100%;
