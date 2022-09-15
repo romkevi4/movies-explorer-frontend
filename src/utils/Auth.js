@@ -31,8 +31,7 @@ class Auth {
                 name: nameData,
                 password: passwordData,
                 email: emailData
-            }),
-            credentials: 'include'
+            })
         })
             .then(this._processResponseAuth);
     }
@@ -48,8 +47,7 @@ class Auth {
             body: JSON.stringify({
                 password: passwordData,
                 email: emailData
-            }),
-            credentials: 'include'
+            })
         })
             .then(this._processResponseAuth);
     }
@@ -62,8 +60,7 @@ class Auth {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 authorization : `Bearer ${token}`
-            },
-            credentials: 'include'
+            }
         })
             .then(this._processResponseAuth);
     }
