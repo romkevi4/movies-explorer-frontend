@@ -15,7 +15,7 @@ class Auth {
 
         return res.json()
             .then((data) => {
-                throw new Error(data.message[0].message[0].message);
+                throw new Error(data.message[0].message);
             });
     }
 
@@ -42,7 +42,8 @@ class Auth {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
             },
             body: JSON.stringify({
                 password: passwordData,
