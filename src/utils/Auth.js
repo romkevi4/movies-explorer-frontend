@@ -15,7 +15,7 @@ class Auth {
 
         return res.json()
             .then((data) => {
-                throw new Error(data.message[0].message);
+                throw new Error(data.message[0].message[0].message);
             });
     }
 

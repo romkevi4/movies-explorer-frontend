@@ -64,9 +64,6 @@ export default function App() {
     function setAutoLogin(email, password) {
         auth.userAuthorization(email, password)
             .then(data => {
-                console.log(data);
-                console.log(data.token);
-
                 if (data.token) {
                     localStorage.setItem('token', data.token);
                     checkToken();
