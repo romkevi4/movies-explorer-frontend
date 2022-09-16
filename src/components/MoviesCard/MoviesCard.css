@@ -67,7 +67,7 @@
   border-radius: 50%;
 
   background-color: #313131;
-  background-image: url(../../../images/movies-card/movies-card-like.svg);
+  background-image: url(../../images/movies-card/movies-card-like.svg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 10px 9px;
@@ -83,7 +83,7 @@
 }
 
 .movies-card__btn_active {
-  background-image: url(../../../images/movies-card/movies-card-like-active.svg);
+  background-image: url(../../images/movies-card/movies-card-like-active.svg);
 }
 
 .movies-card__btn_active:hover {
@@ -91,7 +91,7 @@
 }
 
 .movies-card__btn_remove {
-  background-image: url(../../../images/movies-card/movies-card-remove.svg);
+  background-image: url(../../images/movies-card/movies-card-remove.svg);
 }
 
 .movies-card__duration {

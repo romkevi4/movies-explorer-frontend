@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import validateEmail from '../../utils/validateEmail';
-import { INFORMATION_MESSAGE } from '../../utils/initialData';
+import { INFORMATION_MESSAGE } from '../../utils/constants';
 
 import logo from '../../images/header/header-logo.svg';
 import './AuthForm.css';

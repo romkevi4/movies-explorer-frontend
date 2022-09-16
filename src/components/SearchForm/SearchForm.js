@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
-import useFormWithValidation from '../../../hooks/useFormWithValidation';
+import useFormWithValidation from '../../hooks/useFormWithValidation';
 
-import InfoTooltip from '../../Popup/InfoTooltip/InfoTooltip';
+import InfoTooltip from '../Popup/InfoTooltip/InfoTooltip';
 import CheckboxInput from './CheckboxInput/CheckboxInput';
 
-import { INFORMATION_MESSAGE } from '../../../utils/initialData';
+import { INFORMATION_MESSAGE } from '../../utils/constants';
 
-import arrow from '../../../images/search/search-arrow.svg';
+import arrow from '../../images/search/search-arrow.svg';
 import './SearchForm.css';
 
 export default function SearchForm({ textSearch, checkbox, onChange, onChangeCheckbox }) {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import useSortMovies from './useSortMovies';
 
-import { INFORMATION_MESSAGE } from '../utils/initialData';
+import { INFORMATION_MESSAGE } from '../utils/constants';
 
 
 export default function usePageWithMovies(

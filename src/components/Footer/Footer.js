@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TELEGRAM, GITHUB, YANDEX_PRACTIKUM } from '../../utils/externalResources';
+import { EXTERNAL_RESOURCES } from '../../utils/constants';
 
 import './Footer.css';
 
@@ -17,7 +17,7 @@ export default function Footer() {
 
                 <address className="footer__links">
                     <a
-                        href={YANDEX_PRACTIKUM}
+                        href={EXTERNAL_RESOURCES.YANDEX_PRACTIKUM}
                         className="footer__link"
                         target="_blank"
                     >
@@ -25,7 +25,7 @@ export default function Footer() {
                     </a>
 
                     <a
-                        href={GITHUB}
+                        href={EXTERNAL_RESOURCES.GITHUB}
                         className="footer__link"
                         target="_blank"
                     >
@@ -33,7 +33,7 @@ export default function Footer() {
                     </a>
 
                     <a
-                        href={TELEGRAM}
+                        href={EXTERNAL_RESOURCES.TELEGRAM}
                         className="footer__link"
                         target="_blank"
                     >

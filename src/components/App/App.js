@@ -5,7 +5,7 @@ import useCurrentWidthScreen from '../../hooks/useCurrentWidthScreen';
 
 import { auth } from '../../utils/Auth';
 import { mainApi } from '../../utils/MainApi';
-import { INFORMATION_MESSAGE } from '../../utils/initialData';
+import { INFORMATION_MESSAGE, INFORMATION_VALUES } from '../../utils/constants';
 
 import Register from '../Register/Register';
 import Login from '../Login/Login';
@@ -195,18 +195,21 @@ export default function App() {
 
     // ---------- Управление карточками фильмов ----------
     useEffect(() => {
-        if (width >= 1267) {
-            setMoviesLength(16);
-            setAmountOfMovies(4);
-        } else if (width < 1267) {
-            setMoviesLength(12);
-            setAmountOfMovies(3);
-        } else if (width < 945) {
-            setMoviesLength(8);
-            setAmountOfMovies(2);
-        } else if (width < 619) {
-            setMoviesLength(5);
-            setAmountOfMovies(1);
+        if (width >= INFORMATION_VALUES.LAPTOP_WIDTH) {
+            setMoviesLength(INFORMATION_VALUES.MAX_MOVIES_LENGTH);
+            setAmountOfMovies(INFORMATION_VALUES.MAX_AMOUNT_OF_ADDED_MOVIES);
+
+        } else if (width < INFORMATION_VALUES.LAPTOP_WIDTH) {
+            setMoviesLength(INFORMATION_VALUES.LAPTOP_MOVIES_LENGTH);
+            setAmountOfMovies(INFORMATION_VALUES.LAPTOP_AMOUNT_OF_ADDED_MOVIES);
+
+        } else if (width < INFORMATION_VALUES.TABLET_WIDTH) {
+            setMoviesLength(INFORMATION_VALUES.TABLET_MOVIES_LENGTH);
+            setAmountOfMovies(INFORMATION_VALUES.TABLET_AMOUNT_OF_ADDED_MOVIES);
+
+        } else if (width < INFORMATION_VALUES.PHONE_WIDTH) {
+            setMoviesLength(INFORMATION_VALUES.PHONE_MOVIES_LENGTH);
+            setAmountOfMovies(INFORMATION_VALUES.PHONE_AMOUNT_OF_ADDED_MOVIES);
         }
     }, [width]);
 

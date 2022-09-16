@@ -2,8 +2,8 @@ import React from 'react';
 
 import usePageWithMovies from '../../hooks/usePageWithMovies';
 
-import SearchForm from '../Movies/SearchForm/SearchForm';
-import MoviesCardList from '../Movies/MoviesCardList/MoviesCardList';
+import SearchForm from '../SearchForm/SearchForm';
+import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
 import './SavedMovies.css';
 

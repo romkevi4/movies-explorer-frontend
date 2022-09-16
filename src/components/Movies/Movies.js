@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 
 import usePageWithMovies from '../../hooks/usePageWithMovies';
 
-import SearchForm from './SearchForm/SearchForm';
-import MoviesCardList from './MoviesCardList/MoviesCardList';
+import SearchForm from '../SearchForm/SearchForm';
+import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
 import { moviesApi } from '../../utils/MoviesApi';
 import adjustedMoviesData from '../../utils/adjustedMoviesData';
-import { INFORMATION_MESSAGE } from '../../utils/initialData';
+import { INFORMATION_MESSAGE } from '../../utils/constants';
 
 import './Movies.css';
 

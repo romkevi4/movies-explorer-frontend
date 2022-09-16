@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TELEGRAM, GITHUB, RUSSIAN_TRAVEL, MESTO } from '../../../utils/externalResources';
+import { EXTERNAL_RESOURCES } from '../../../utils/constants';
 
 import photo from '../../../images/about-me/about-me-photo.png';
 import arrow from '../../../images/about-me/about-me-arrow.svg';
@@ -27,7 +27,7 @@ export default function AboutMe() {
                 </p>
                 <address className="about-me__social-links">
                     <a
-                        href={GITHUB}
+                        href={EXTERNAL_RESOURCES.GITHUB}
                         className="about-me__social-link"
                         target="_blank"
                     >
@@ -35,7 +35,7 @@ export default function AboutMe() {
                     </a>
 
                     <a
-                        href={TELEGRAM}
+                        href={EXTERNAL_RESOURCES.TELEGRAM}
                         className="about-me__social-link"
                         target="_blank"
                     >
@@ -50,7 +50,7 @@ export default function AboutMe() {
 
                     <li className="about-me__site">
                         <a
-                            href={RUSSIAN_TRAVEL}
+                            href={EXTERNAL_RESOURCES.RUSSIAN_TRAVEL}
                             className="about-me__site-link"
                             target="_blank"
                         >
@@ -66,7 +66,7 @@ export default function AboutMe() {
 
                     <li className="about-me__site">
                         <a
-                            href={RUSSIAN_TRAVEL}
+                            href={EXTERNAL_RESOURCES.RUSSIAN_TRAVEL}
                             className="about-me__site-link"
                             target="_blank"
                         >
@@ -82,7 +82,7 @@ export default function AboutMe() {
 
                     <li className="about-me__site">
                         <a
-                            href={MESTO}
+                            href={EXTERNAL_RESOURCES.MESTO}
                             className="about-me__site-link"
                             target="_blank"
                         >
