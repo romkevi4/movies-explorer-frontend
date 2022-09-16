@@ -16,7 +16,7 @@ export default function SavedMovies({ savedMovies, moviesLength, handleMovieRemo
         updatedMovies,
         handleChangeSearch,
         handleChangeCheckbox
-    } = usePageWithMovies(savedMovies, 'savedTextSearch', 'savedCheckbox', 'savedMovies');
+    } = usePageWithMovies(savedMovies, '', '', 'savedMovies');
 
 
     return (

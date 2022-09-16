@@ -23,15 +23,25 @@ export default function usePageWithMovies(
 
 
     const handleChangeSearch = (text) => {
-        getMovies && getMovies();
+        if (getMovies) {
+            getMovies();
 
-        setTextSearch(text);
-        localStorage.setItem(localTextSearchName, text);
+            setTextSearch(text);
+            localStorage.setItem(localTextSearchName, text);
+        } else {
+            setTextSearch(text);
+        }
     }
 
     const handleChangeCheckbox = (checked) => {
-        setCheckbox(checked);
-        localStorage.setItem(localCheckboxName, checked);
+        if (getMovies) {
+            getMovies();
+
+            setCheckbox(checked);
+            localStorage.setItem(localCheckboxName, checked);
+        } else {
+            setCheckbox(checked);
+        }
     }
 
     useEffect(() => {
@@ -45,8 +55,12 @@ export default function usePageWithMovies(
         if (updatedMovies !== sortMovies && sortMovies.length) {
             setIsSearchSuccessful(true);
 
-            setUpdatedMovies(sortMovies);
-            localStorage.setItem(localUpdatedMoviesName, JSON.stringify(sortMovies));
+            if (getMovies) {
+                setUpdatedMovies(sortMovies);
+                localStorage.setItem(localUpdatedMoviesName, JSON.stringify(sortMovies));
+            } else {
+                setUpdatedMovies(sortMovies);
+            }
         }
     }, [sortMovies, updatedMovies, sortMovies.length]);
 
