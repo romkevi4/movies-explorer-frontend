@@ -10,7 +10,7 @@
   width: 90%;
 
   display: grid;
-  grid-template-columns: minmax(min-content, max-content) 1fr 1fr;
+  grid-template-columns: minmax(min-content, max-content) 1fr min-content;
   grid-template-rows: repeat(3, minmax(min-content, max-content)) 1fr;
   grid-template-areas:
     "name . photo"
