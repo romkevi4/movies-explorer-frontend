@@ -21,7 +21,6 @@ export default function Header({
     isBurgerMenuOpen,
     onOpenBurgerMenu,
     onCloseBurgerMenu,
-    // loggedIn,
     bgStyle
 }) {
     const { loggedIn } = useContext(AppContext);

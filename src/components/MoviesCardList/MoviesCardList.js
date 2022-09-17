@@ -11,15 +11,12 @@ import './MoviesCardList.css';
 export default function MoviesCardList({
     isPreloader,
     currentMovies,
-    // savedMovies,
-    // moviesLength,
-    // handleMovieLike,
-    // handleMovieRemove,
     infoResponse,
     isSearchSuccessful,
     isSavedMoviesPage
 }) {
     const { moviesLength } = useContext(AppContext);
+
 
     return (
         <section className="section movies-card-list">
@@ -34,9 +31,6 @@ export default function MoviesCardList({
                                     return (
                                         <MoviesCard
                                             movie={movie}
-                                            // savedMovies={savedMovies}
-                                            // handleMovieLike={handleMovieLike}
-                                            // handleMovieRemove={handleMovieRemove}
                                             isSavedMoviesPage={isSavedMoviesPage}
                                             key={movie.id ? movie.id : movie.movieId}
                                         />

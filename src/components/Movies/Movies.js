@@ -14,18 +14,10 @@ import { AppContext } from '../../contexts/AppContext';
 import './Movies.css';
 
 
-export default function Movies({
-    // savedMovies,
-    // moviesLength,
-    // handleMovieLike,
-    // handleMovieRemove,
-    addSavedMoviesOnPage,
-    outputErrors
-}) {
+export default function Movies({ addSavedMoviesOnPage, outputErrors }) {
     const [ isPreloader, setIsPreloader ] = useState(false);
 
-    const [ movies, setMovies ] = useState(JSON.parse(localStorage.getItem('movies')) ?? []);
-    const { moviesLength } = useContext(AppContext);
+    const { movies, setMovies, moviesLength } = useContext(AppContext);
     const {
         isSearchSuccessful,
         setIsSearchSuccessful,
@@ -76,10 +68,6 @@ export default function Movies({
             <MoviesCardList
                 isPreloader={isPreloader}
                 currentMovies={updatedMovies}
-                // savedMovies={savedMovies}
-                // moviesLength={moviesLength}
-                // handleMovieLike={handleMovieLike}
-                // handleMovieRemove={handleMovieRemove}
                 infoResponse={infoResponse}
                 isSearchSuccessful={isSearchSuccessful}
                 isSavedMoviesPage={false}

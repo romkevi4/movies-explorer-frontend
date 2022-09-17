@@ -35,9 +35,6 @@ export default function SavedMovies() {
 
             <MoviesCardList
                 currentMovies={updatedMovies}
-                savedMovies={savedMovies}
-                moviesLength={moviesLength}
-                handleMovieRemove={handleMovieRemove}
                 infoResponse={infoResponse}
                 isSearchSuccessful={isSearchSuccessful}
                 isSavedMoviesPage

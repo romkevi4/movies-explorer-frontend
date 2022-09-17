@@ -4,15 +4,9 @@ import { AppContext } from '../../contexts/AppContext';
 
 import './MoviesCard.css';
 
-export default function MoviesCard({
-    movie,
-    // savedMovies,
-    // handleMovieLike,
-    // handleMovieRemove,
-    isSavedMoviesPage
-}) {
-    const { savedMovies, handleMovieLike, handleMovieRemove } = useContext(AppContext);
 
+export default function MoviesCard({ movie, isSavedMoviesPage }) {
+    const { savedMovies, handleMovieLike, handleMovieRemove } = useContext(AppContext);
 
     function onMovieLike() {
         handleMovieLike(movie);
