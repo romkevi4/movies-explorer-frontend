@@ -27,7 +27,12 @@ export default function SearchForm({ textSearch, checkbox, onChange, onChangeChe
 
     const onSubmit = (evt) => {
         evt.preventDefault();
-        isValid ? onChange(values.search) : setIsOpen(true);
+
+        if (isValid) {
+            onChange(values.search);
+        } else if (!isValid && (values.search === '' || textSearch === '')) {
+            setIsOpen(true);
+        }
     }
 
     useEffect(() => {
@@ -44,7 +49,6 @@ export default function SearchForm({ textSearch, checkbox, onChange, onChangeChe
             >
                 <input
                     type="search"
-                    minLength="2"
                     name="search"
                     placeholder={isValid ? '' : errors.search}
                     defaultValue={textSearch}

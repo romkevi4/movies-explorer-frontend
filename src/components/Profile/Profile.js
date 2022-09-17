@@ -12,6 +12,7 @@ import './Profile.css';
 export default function Profile({
     handleUpdateUser,
     onClickEditProfile,
+    onCloseEditProfile,
     isEdit,
     isStatus,
     isStatusPopupOpen,
@@ -66,7 +67,6 @@ export default function Profile({
                         value={values.name || ''}
                         onChange={handleChange}
                         required
-                        disabled={isEdit}
                         autoComplete="off"
                         className="profile__input"
                         id="profileName"
@@ -82,7 +82,6 @@ export default function Profile({
                         value={values.email || ''}
                         onChange={handleChange}
                         required
-                        disabled={isEdit}
                         autoComplete="off"
                         pattern="^[^@\s]+@[^@\s]+\.[^@\s]+$"
                         className="profile__input"
@@ -105,6 +104,15 @@ export default function Profile({
                                         className={isValid ? 'profile__btn-save' : 'profile__btn-save profile__btn-save_disable'}
                                     >
                                         Сохранить
+                                    </button>
+
+                                    <button
+                                        aria-label="Назад"
+                                        type="button"
+                                        onClick={onCloseEditProfile}
+                                        className="profile__btn"
+                                    >
+                                        Назад
                                     </button>
                                 </>
                             )

@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import { AppContext } from '../../contexts/AppContext';
 
 import './MoviesCard.css';
 
 export default function MoviesCard({
     movie,
-    savedMovies,
-    handleMovieLike,
-    handleMovieRemove,
+    // savedMovies,
+    // handleMovieLike,
+    // handleMovieRemove,
     isSavedMoviesPage
 }) {
+    const { savedMovies, handleMovieLike, handleMovieRemove } = useContext(AppContext);
+
+
     function onMovieLike() {
         handleMovieLike(movie);
     }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import usePageWithMovies from '../../hooks/usePageWithMovies';
 
@@ -9,20 +9,23 @@ import { moviesApi } from '../../utils/MoviesApi';
 import adjustedMoviesData from '../../utils/adjustedMoviesData';
 import { INFORMATION_MESSAGE } from '../../utils/constants';
 
+import { AppContext } from '../../contexts/AppContext';
+
 import './Movies.css';
 
 
 export default function Movies({
-    savedMovies,
-    moviesLength,
-    handleMovieLike,
-    handleMovieRemove,
+    // savedMovies,
+    // moviesLength,
+    // handleMovieLike,
+    // handleMovieRemove,
     addSavedMoviesOnPage,
     outputErrors
 }) {
     const [ isPreloader, setIsPreloader ] = useState(false);
 
     const [ movies, setMovies ] = useState(JSON.parse(localStorage.getItem('movies')) ?? []);
+    const { moviesLength } = useContext(AppContext);
     const {
         isSearchSuccessful,
         setIsSearchSuccessful,
@@ -73,10 +76,10 @@ export default function Movies({
             <MoviesCardList
                 isPreloader={isPreloader}
                 currentMovies={updatedMovies}
-                savedMovies={savedMovies}
-                moviesLength={moviesLength}
-                handleMovieLike={handleMovieLike}
-                handleMovieRemove={handleMovieRemove}
+                // savedMovies={savedMovies}
+                // moviesLength={moviesLength}
+                // handleMovieLike={handleMovieLike}
+                // handleMovieRemove={handleMovieRemove}
                 infoResponse={infoResponse}
                 isSearchSuccessful={isSearchSuccessful}
                 isSavedMoviesPage={false}

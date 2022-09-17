@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import InitialMenu from './InitialMenu/InitialMenu';
 import Navigation from './Navigation/Navigation';
 import BurgerMenu from './BurgerMenu/BurgerMenu';
 
-import logo from '../../images/header/header-logo.svg';
+import { AppContext } from '../../contexts/AppContext';
 
+import logo from '../../images/header/header-logo.svg';
 import './Header.css';
 
 
@@ -20,9 +21,10 @@ export default function Header({
     isBurgerMenuOpen,
     onOpenBurgerMenu,
     onCloseBurgerMenu,
-    loggedIn,
+    // loggedIn,
     bgStyle
 }) {
+    const { loggedIn } = useContext(AppContext);
 
     return (
         <header className={bgStyle ? 'header' : 'header header_background_inactive'}>

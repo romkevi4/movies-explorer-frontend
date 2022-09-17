@@ -12,6 +12,7 @@ export const INFORMATION_MESSAGE = {
 
 // Числовые константы
 export const INFORMATION_VALUES = {
+    ERROR_NOT_FOUND: 404,
     DURATION_OF_SHORT_FILM: 40,
     LAPTOP_WIDTH: 1267,
     TABLET_WIDTH: 945,

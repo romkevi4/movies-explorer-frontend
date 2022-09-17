@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import usePageWithMovies from '../../hooks/usePageWithMovies';
 
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
+import { AppContext } from '../../contexts/AppContext';
+
 import './SavedMovies.css';
 
 
-export default function SavedMovies({ savedMovies, moviesLength, handleMovieRemove }) {
+export default function SavedMovies() {
+    const { savedMovies, moviesLength, handleMovieRemove } = useContext(AppContext);
     const {
         isSearchSuccessful,
+        infoResponse,
         textSearch,
         checkbox,
         updatedMovies,
@@ -34,6 +38,7 @@ export default function SavedMovies({ savedMovies, moviesLength, handleMovieRemo
                 savedMovies={savedMovies}
                 moviesLength={moviesLength}
                 handleMovieRemove={handleMovieRemove}
+                infoResponse={infoResponse}
                 isSearchSuccessful={isSearchSuccessful}
                 isSavedMoviesPage
             />

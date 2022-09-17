@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import Preloader from '../Preloader/Preloader';
 import MoviesCard from '../MoviesCard/MoviesCard';
+
+import { AppContext } from '../../contexts/AppContext';
 
 import './MoviesCardList.css';
 
@@ -9,14 +11,16 @@ import './MoviesCardList.css';
 export default function MoviesCardList({
     isPreloader,
     currentMovies,
-    savedMovies,
-    moviesLength,
-    handleMovieLike,
-    handleMovieRemove,
+    // savedMovies,
+    // moviesLength,
+    // handleMovieLike,
+    // handleMovieRemove,
     infoResponse,
     isSearchSuccessful,
     isSavedMoviesPage
 }) {
+    const { moviesLength } = useContext(AppContext);
+
     return (
         <section className="section movies-card-list">
             <Preloader isPreloader={isPreloader} />
@@ -30,9 +34,9 @@ export default function MoviesCardList({
                                     return (
                                         <MoviesCard
                                             movie={movie}
-                                            savedMovies={savedMovies}
-                                            handleMovieLike={handleMovieLike}
-                                            handleMovieRemove={handleMovieRemove}
+                                            // savedMovies={savedMovies}
+                                            // handleMovieLike={handleMovieLike}
+                                            // handleMovieRemove={handleMovieRemove}
                                             isSavedMoviesPage={isSavedMoviesPage}
                                             key={movie.id ? movie.id : movie.movieId}
                                         />
