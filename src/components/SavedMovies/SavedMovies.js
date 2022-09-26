@@ -1,15 +1,44 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
-import SearchForm from '../Movies/SearchForm/SearchForm';
-import MoviesCardList from '../Movies/MoviesCardList/MoviesCardList';
+import usePageWithMovies from '../../hooks/usePageWithMovies';
+
+import SearchForm from '../SearchForm/SearchForm';
+import MoviesCardList from '../MoviesCardList/MoviesCardList';
+
+import { AppContext } from '../../contexts/AppContext';
 
 import './SavedMovies.css';
 
+
 export default function SavedMovies() {
+    const { savedMovies, moviesLength, handleMovieRemove } = useContext(AppContext);
+    const {
+        isSearchSuccessful,
+        infoResponse,
+        textSearch,
+        checkbox,
+        updatedMovies,
+        handleChangeSearch,
+        handleChangeCheckbox
+    } = usePageWithMovies(savedMovies, '', '', 'savedMovies');
+
+
     return (
         <main className="savedMovies">
-            <SearchForm />
-            <MoviesCardList />
+            <SearchForm
+                textSearch={textSearch}
+                checkbox={checkbox}
+                onChange={handleChangeSearch}
+                onChangeCheckbox={handleChangeCheckbox}
+                disabledCheckbox={!textSearch}
+            />
+
+            <MoviesCardList
+                currentMovies={updatedMovies}
+                infoResponse={infoResponse}
+                isSearchSuccessful={isSearchSuccessful}
+                isSavedMoviesPage
+            />
         </main>
     );
 }

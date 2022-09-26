@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-export default function ProtectedRoute({ children, ...props }) {
+
+export default function ProtectedRoute({ children }) {
+    const [ signedIn, setSignedIn ] = useState(true);
+
+    useEffect(() => {
+        if (!localStorage.getItem('token')) {
+            setSignedIn(false);
+        }
+    }, []);
+
+
     return (
         <Route>
             {() =>
-                props.loggedIn ? children : <Redirect to="/" />
+                signedIn ? children : <Redirect to="/" />
             }
         </Route>
     );

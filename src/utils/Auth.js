@@ -1,7 +1,7 @@
 import { authenticationData } from './initialData';
 
 
-// =============================== Формирование класса Auth для работы с API ===============================
+// =============================== Формирование класса Auth для работы с собственным API ===============================
 class Auth {
     constructor({ serverAddress }) {
         this._baseUrl = serverAddress;
@@ -31,40 +31,37 @@ class Auth {
                 name: nameData,
                 password: passwordData,
                 email: emailData
-            }),
-            credentials: 'include'
+            })
         })
             .then(this._processResponseAuth);
     }
 
     // Авторизация пользователя
-    userAuthorization(passwordData, emailData) {
+    userAuthorization(emailData, passwordData) {
         return fetch(`${this._baseUrl}/signin`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
             },
             body: JSON.stringify({
                 password: passwordData,
                 email: emailData
-            }),
-            credentials: 'include'
+            })
         })
             .then(this._processResponseAuth);
     }
 
     // Проверка валидности токена
     validityCheck(token) {
-        return fetch(`${this._baseUrl}/profile
-        `, {
+        return fetch(`${this._baseUrl}/users/me`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
                 authorization : `Bearer ${token}`
-            },
-            credentials: 'include'
+            }
         })
             .then(this._processResponseAuth);
     }

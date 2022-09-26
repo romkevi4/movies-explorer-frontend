@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import InitialMenu from './InitialMenu/InitialMenu';
 import Navigation from './Navigation/Navigation';
 import BurgerMenu from './BurgerMenu/BurgerMenu';
 
-import logo from '../../images/header/header-logo.svg';
+import { AppContext } from '../../contexts/AppContext';
 
+import logo from '../../images/header/header-logo.svg';
 import './Header.css';
 
 
@@ -16,20 +17,19 @@ export default function Header({
     goToLogin,
     goToMovies,
     goToSavedMovies,
+    goToProfile,
     isBurgerMenuOpen,
     onOpenBurgerMenu,
     onCloseBurgerMenu,
-    goToProfile,
-    loggedIn
+    bgStyle
 }) {
-
+    const { loggedIn } = useContext(AppContext);
 
     return (
-        <header className={`header ${loggedIn ? '' : 'header_background_active'}`}>
+        <header className={bgStyle ? 'header' : 'header header_background_inactive'}>
             <div className="header__container">
                 <Link
                     to={goToHome}
-                    // onClick={handleSignOut}
                     className="header__link-about-project"
                 >
                     <img
@@ -56,9 +56,10 @@ export default function Header({
                                         goToHome={goToHome}
                                         goToMovies={goToMovies}
                                         goToSavedMovies={goToSavedMovies}
-                                        isBurgerMenuOpen={isBurgerMenuOpen}
-                                        onOpenBurgerMenu={onOpenBurgerMenu}
-                                        onCloseBurgerMenu={onCloseBurgerMenu}
+                                        goToProfile={goToProfile}
+                                        isOpen={isBurgerMenuOpen}
+                                        onOpen={onOpenBurgerMenu}
+                                        onClose={onCloseBurgerMenu}
                                     />
                                 </div>
                             </>

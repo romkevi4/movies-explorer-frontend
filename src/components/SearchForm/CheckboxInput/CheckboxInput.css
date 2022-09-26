@@ -1,0 +1,64 @@
+/* Checkbox for laptop */
+.checkbox-input {
+  margin: 0 auto 70px;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input[type="checkbox"].checkbox-input__toggle {
+  width: 34px;
+  height: 14px;
+  border-radius: 20px;
+
+  background-color: #343434;
+  appearance: none;
+  outline: none;
+
+  position: relative;
+  cursor: pointer;
+
+  transition: all .3s ease-in-out .1s;
+}
+
+input[type="checkbox"].checkbox-input__toggle:checked {
+  background-color: #3DDC84;
+}
+
+input[type="checkbox"].checkbox-input__toggle:after {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+
+  background: #A0A0A0;
+  box-shadow: 0 0 2px rgba(0,0,0,.3);
+
+  position: absolute;
+  content: "";
+  top: 2px;
+  right: 22px;
+  bottom: 2px;
+  left: 2px;
+
+  transition: all .2s ease-in-out .1s;
+}
+
+input[type="checkbox"].checkbox-input__toggle:checked:after {
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+  left: 22px;
+
+  background: #fff;
+  box-shadow: 0 0 2px rgba(0,0,0,.3);
+}
+
+.checkbox-input__signature {
+  margin: 0 0 0 12px;
+
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.29;
+}

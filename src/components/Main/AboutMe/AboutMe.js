@@ -1,11 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
-import { TELEGRAM, GITHUB, RUSSIAN_TRAVEL, MESTO } from '../../../utils/externalResources';
+import { EXTERNAL_RESOURCES } from '../../../utils/constants';
 
-import photo from '../../../images/about-me/about-me-photo.png';
+import photo from '../../../images/about-me/about-me-photo.jpg';
 import arrow from '../../../images/about-me/about-me-arrow.svg';
-
 import './AboutMe.css';
 
 export default function AboutMe() {
@@ -22,14 +20,13 @@ export default function AboutMe() {
                     className="about-me__photo"
                 />
                 <p className="about-me__description">
-                    Я родился и живу в Саратове, закончил факультет экономики СГУ. У меня есть жена
-                    и дочь. Я люблю слушать музыку, а ещё увлекаюсь бегом. Недавно начал кодить.
-                    С 2015 года работал в компании «СКБ Контур». После того, как прошёл курс по веб-разработке,
-                    начал заниматься фриланс-заказами и ушёл с постоянной работы.
+                    Я живу в Москве, закончил энергетический ВУЗ, но моё призвание - это программирование.
+                    У меня есть любимые жена и дочка. Я люблю слушать музыку, играю на гитаре. Недавно начал
+                    кодить и прошёл курс по веб-разработке. Хочу развиваться именно в программировании.
                 </p>
                 <address className="about-me__social-links">
                     <a
-                        href={GITHUB}
+                        href={EXTERNAL_RESOURCES.GITHUB}
                         className="about-me__social-link"
                         target="_blank"
                     >
@@ -37,7 +34,7 @@ export default function AboutMe() {
                     </a>
 
                     <a
-                        href={TELEGRAM}
+                        href={EXTERNAL_RESOURCES.TELEGRAM}
                         className="about-me__social-link"
                         target="_blank"
                     >
@@ -52,7 +49,7 @@ export default function AboutMe() {
 
                     <li className="about-me__site">
                         <a
-                            href={RUSSIAN_TRAVEL}
+                            href={EXTERNAL_RESOURCES.RUSSIAN_TRAVEL}
                             className="about-me__site-link"
                             target="_blank"
                         >
@@ -68,7 +65,7 @@ export default function AboutMe() {
 
                     <li className="about-me__site">
                         <a
-                            href={RUSSIAN_TRAVEL}
+                            href={EXTERNAL_RESOURCES.RUSSIAN_TRAVEL}
                             className="about-me__site-link"
                             target="_blank"
                         >
@@ -84,7 +81,7 @@ export default function AboutMe() {
 
                     <li className="about-me__site">
                         <a
-                            href={MESTO}
+                            href={EXTERNAL_RESOURCES.MESTO}
                             className="about-me__site-link"
                             target="_blank"
                         >

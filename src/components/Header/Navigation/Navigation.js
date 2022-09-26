@@ -2,7 +2,6 @@ import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 
 import iconAccount from '../../../images/header/header-icon-account.svg';
-
 import './Navigation.css';
 
 export default function Navigation({
@@ -16,7 +15,6 @@ export default function Navigation({
                 <NavLink
                     exact
                     to={goToMovies}
-                    // onClick={handleSignOut}
                     className="navigation__link-movies"
                     activeClassName="navigation__link-movies_active"
                 >
@@ -25,7 +23,6 @@ export default function Navigation({
 
                 <NavLink
                     to={goToSavedMovies}
-                    // onClick={handleSignOut}
                     className="navigation__link-movies"
                     activeClassName="navigation__link-movies_active"
                 >
